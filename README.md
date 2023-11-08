@@ -29,7 +29,7 @@ git checkout -b <브랜치명>
 git checkout -b 001-readme-update
 ```
 
-이후 작업을 진행한 뒤 원격 레포지토리로 브랜치를 push하면, github 레포지토리의 Pull Requests 탭에 들어가면 상단에 황색 메시지 박스가 뜨면서 `New pull request`를 작성할 수 있습니다. 해당 PR에 대한 내용을 작성한 뒤 1명 이상의 코드 리뷰를 통해 Approve가 되면 비로소 main 브랜치에 작업 내용을 업데이트 할 수 있습니다.
+이후 작업을 진행한 뒤 원격 레포지토리로 브랜치를 push하면, github 레포지토리의 Pull Requests 탭에 들어가면 상단에 황색 메시지 박스가 뜨면서 `Compare & pull request`를 작성할 수 있습니다. 해당 PR에 대한 내용을 작성한 뒤 1명 이상의 코드 리뷰를 통해 Approve가 되면 비로소 main 브랜치에 작업 내용을 업데이트 할 수 있습니다.
 
 ## 개발환경 실행 방법
 
