@@ -1,0 +1,38 @@
+import Link from "next/link"
+import Image from "next/image";
+import { Button } from "@radix-ui/themes"
+
+export function NavigationBar() {
+  return (
+    <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
+      <Link href="#">
+        <div className="flex items-center">
+          <Image src="/forif.svg"
+            alt="Logo"
+            width={90}
+            height={90}
+          />
+          <span className="ml-2 text-xl font-bold dark:text-white">Company Logo</span>
+        </div>
+      </Link>
+      <nav className="flex items-center space-x-6">
+        <NavTab href="/attendance">전자출결</NavTab>
+        <NavTab href="/board">게시판</NavTab>
+        <NavTab href="/mypage">마이페이지</NavTab>
+        <Button
+          variant="outline"
+        >
+          로그인
+        </Button>
+      </nav>
+    </header>
+  )
+}
+
+function NavTab({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50">
+      {children}
+    </Link>
+  )
+}

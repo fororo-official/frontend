@@ -34,6 +34,8 @@ git checkout -b 001-readme-update
 
 ## 개발환경 실행 방법
 
+> node 18.0.0 이상, pnpm 6.14.0 이상이 필요합니다.
+
 ```
 pnpm run dev
 ```
