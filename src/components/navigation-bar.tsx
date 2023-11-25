@@ -1,6 +1,8 @@
 import Link from "next/link"
 import Image from "next/image";
-import { Button } from "@radix-ui/themes"
+import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { FiMenu } from "react-icons/fi";
 
 export function NavigationBar() {
   return (
@@ -12,10 +14,9 @@ export function NavigationBar() {
             width={90}
             height={90}
           />
-          <span className="ml-2 text-xl font-bold dark:text-white">Company Logo</span>
         </div>
       </Link>
-      <nav className="flex items-center space-x-6">
+      <nav className="flex items-center space-x-6 max-md:hidden">
         <NavTab href="/attendance">전자출결</NavTab>
         <NavTab href="/board">게시판</NavTab>
         <NavTab href="/mypage">마이페이지</NavTab>
@@ -24,6 +25,29 @@ export function NavigationBar() {
         >
           로그인
         </Button>
+      </nav>
+      {/* dropdown menu */}
+      <nav className="hidden max-md:flex items-center space-x-6">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+                variant="ghost"
+                size='icon'
+              >
+                <FiMenu size={24} />
+              </Button>
+          </SheetTrigger>
+          <SheetContent className="w-64">
+            <div className="flex flex-col space-y-2">
+              <NavTab href="/attendance">전자출결</NavTab>
+              <NavTab href="/board">게시판</NavTab>
+              <NavTab href="/mypage">마이페이지</NavTab>
+              <Button
+                variant="outline"
+              >로그인 / 회원가입</Button>
+            </div>
+          </SheetContent>
+        </Sheet>
       </nav>
     </header>
   )

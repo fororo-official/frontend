@@ -4,6 +4,7 @@ import './globals.css'
 import '@radix-ui/themes/styles.css'
 
 import { Theme } from '@radix-ui/themes'
+import { NavigationBar } from '@/components/navigation-bar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Theme
           accentColor='iris'
         >
+          <NavigationBar />
           {children}
         </Theme>
       </body>
