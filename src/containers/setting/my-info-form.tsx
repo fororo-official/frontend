@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { FiEdit, FiUpload } from "react-icons/fi";
+import { FiUpload } from "react-icons/fi";
 
 const formSchema = z.object({
   username: z.string().min(2, { message: '이름은 2글자 이상이어야 합니다.' }).max(20, { message: '이름은 20글자 이하여야 합니다.' }),

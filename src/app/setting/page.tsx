@@ -2,12 +2,12 @@
 
 import { Button } from '@/components/ui/button'
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select'
-import MyInfoForm from '@/containers/my-info/my-info-form'
+import MyInfoForm from '@/containers/setting/my-info-form'
 import { Text } from '@radix-ui/themes'
 import React from 'react'
 import { FiUser, FiSettings } from 'react-icons/fi'
 
-const MyPage = () => {
+const SettingPage = () => {
 
   return (
     <div className='flex flex-col pb-16 pt-16 px-6 bg-gray-100 min-h-full items-center h-fit'>
@@ -51,4 +51,4 @@ const MyPage = () => {
   )
 }
 
-export default MyPage
+export default SettingPage
