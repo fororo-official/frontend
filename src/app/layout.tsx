@@ -5,6 +5,8 @@ import '@radix-ui/themes/styles.css'
 
 import { Theme } from '@radix-ui/themes'
 import { NavigationBar } from '@/components/navigation-bar'
+import { Footer } from '@/components/footer'
+import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,12 +22,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn('h-full', inter.className)}>
         <Theme
           accentColor='iris'
+          className='h-full'
         >
           <NavigationBar />
           {children}
+          <Footer />
         </Theme>
       </body>
     </html>
