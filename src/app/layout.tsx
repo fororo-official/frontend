@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn('h-full', inter.className)}>
+      <body className={cn('h-full scrollbar-hide', inter.className)}>
         <Theme
           accentColor='iris'
           className='h-full'
