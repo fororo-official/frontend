@@ -8,6 +8,7 @@ function SettingMenuSelect() {
 
   return (
     <Select
+      defaultValue={window.location.pathname === '/setting/my-info' ? 'my-info' : 'account'}
       onValueChange={(value) => {
         if (value === 'my-info') {
           router.push('/setting/my-info')
@@ -17,7 +18,9 @@ function SettingMenuSelect() {
       }}
     >
       <SelectTrigger className='w-10/12 max-md:w-full'>
-        <SelectValue placeholder='내 정보' />
+        <SelectValue placeholder={
+          window.location.pathname === '/setting/my-info' ? '내 정보' : '계정 설정'
+        }/>
       </SelectTrigger>
       <SelectContent>
         <SelectItem value='my-info' className='text-gray-900'>내 정보</SelectItem>

@@ -154,7 +154,7 @@ export default function MyInfoForm() {
                   alt="profile"
                 />
                 <Button
-                  variant='outline' size='icon'
+                  variant='outline' size='icon' type='button'
                 >
                   <FiUpload size={16} />
                 </Button>
