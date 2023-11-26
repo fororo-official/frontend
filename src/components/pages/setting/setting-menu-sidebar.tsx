@@ -1,14 +1,20 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { FiUser, FiSettings } from 'react-icons/fi'
 import { cn } from '@/lib/utils'
 
 function SettingMenuSidebar() {
-  const [active, setActive] = useState<'my-info' | 'account'>(window.location.pathname === '/setting/my-info' ? 'my-info' : 'account')
+  const [active, setActive] = useState<'my-info' | 'account'>('my-info')
+  const [path, setPath] = useState<string>('');
 
+  useEffect(() => {
+    setPath(window.location.pathname)
+    setActive(path === '/setting/my-info' ? 'my-info' : 'account')
+  }, [path])
+  
   return (
     <div className='flex flex-col justify-center items-center p-4'>
       <Button
