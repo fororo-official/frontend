@@ -7,7 +7,7 @@ import { FiMenu } from "react-icons/fi";
 export function NavigationBar() {
   return (
     <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
-      <Link href="#">
+      <Link href="/">
         <div className="flex items-center">
           <Image src="/forif.svg"
             alt="Logo"
