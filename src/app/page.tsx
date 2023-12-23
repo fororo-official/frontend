@@ -36,7 +36,6 @@ export default function Home() {
     if (result?.user) {
       Cookies.set("userId", result.user.UID);
       Cookies.set("publicKey", result.user.wallets.ethereum.publicKey);
-      Cookies.set("phase", "1");
     }
   }, [result]);
 

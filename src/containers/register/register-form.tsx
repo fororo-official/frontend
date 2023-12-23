@@ -59,6 +59,8 @@ export default function RegisterForm() {
             params: {
               upload_preset: "fpzdtvvt",
               api_key: "315526953864782",
+              folder: "profiles",
+              public_id: data.studentId,
             },
             headers: {
               "Content-Type": "multipart/form-data",
@@ -68,8 +70,9 @@ export default function RegisterForm() {
         .then((res) => {
           const data: CloudinaryRes = res.data;
           console.log(data.url);
-          ToastEmitter({ type: "success", text: "회원가입 성공!" });
+          localStorage.setItem("born", "true");
           router.push("/studies");
+          ToastEmitter({ type: "success", text: "회원가입 성공!" });
         });
     } catch (err) {
       console.log(err);
