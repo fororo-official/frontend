@@ -8,8 +8,12 @@ function StudyCardContainer({ showAttendance }: StudyCardType) {
   ];
   return (
     <div className="flex flex-col gap-2">
-      {studyList.map((studyname) => (
-        <StudyCard showAttendance={showAttendance} studyName={studyname} />
+      {studyList.map((studyname, idx) => (
+        <StudyCard
+          key={idx}
+          showAttendance={showAttendance}
+          studyName={studyname}
+        />
       ))}
     </div>
   );

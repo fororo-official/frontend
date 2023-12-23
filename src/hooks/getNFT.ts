@@ -1,9 +1,8 @@
-import { ethers, Wallet } from "ethers";
+import Web3 from "web3";
 
-// const infuraURL =
-//   "https://polygon-mainnet.infura.io/v3/5165b64a09a54f10b88e0fb46a7e8aee";
-
-// const provider = new ethers.JsonRpcProvider(infuraURL);
+const infuraURL =
+  "https://polygon-mainnet.infura.io/v3/5165b64a09a54f10b88e0fb46a7e8aee";
+const web3 = new Web3(infuraURL);
 //컨트랙트 주소
 const contractAddress = "0xe52a59E10EE83f281c73Fe2f2eA5EAFE5cc084Af";
 //컨트렉트 abi
@@ -278,22 +277,17 @@ const abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-];
+] as const;
 
-async function getTokenURIOf(NFTowner: string, signer: Wallet) {
-  //지불자 월렛
-  // const signer = new ethers.Wallet(
-  //   "32cee991215ccbefa0186c43d56db5e10290edaefd61704bea0a760195b848eb",
-  //   provider
-  // );
-  // //지불자 주소
-  // const walletAddress = "0x83F917D36Ba35F2A61B069cdBccdC12F96705fc6";
-  console.log("HI");
-  const contract = new ethers.Contract(contractAddress, abi, signer);
-  const result = await contract["getTokenURIOf"](NFTowner);
-  console.log(result);
+async function getNFTs(publicKey: string) {
+  // 스마트 컨트랙트 인스턴스를 생성합니다.
+  const contract = new web3.eth.Contract(abi, contractAddress);
 
-  return result;
+  // view 함수 호출
+  const res = await contract.methods.getTokenURIOf(publicKey).call();
+
+  console.log(res);
+  return res;
 }
 
-export default getTokenURIOf;
+export default getNFTs;
