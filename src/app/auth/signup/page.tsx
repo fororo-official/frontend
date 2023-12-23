@@ -13,8 +13,11 @@ export default function SignUp() {
             <Text size="6" weight="bold" className="text-gray-50">
               회원가입
             </Text>
-            <Text size="2" weight="medium" className="text-gray-400">
+            <Text size="2" weight="medium" className="text-gray-400 mb-2">
               운영진 확인 후 가입이 승인됩니다.
+            </Text>
+            <Text size="2" weight="medium" className="text-gray-400">
+              2/2
             </Text>
           </div>
           <div className="flex flex-col justify-start p-6 md:w-8/12">

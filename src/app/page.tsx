@@ -13,11 +13,12 @@ import {
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
   const [result, setResult] = useState<SignInResult>();
-  async function initWallet() {
+  useEffect(() => {
     init({
+      appId: "hrbpivofet",
       appName: "포로로",
       authProviders: [
         AUTH_PROVIDER.GOOGLE,
@@ -29,14 +30,21 @@ export default function Home() {
       walletProviders: [WALLET_PROVIDER.METAMASK],
       network: SUPPORTED_ETHEREUM_NETWORKS.MATICMUM,
       theme: THEME.DARK,
+      issueIdToken: true,
     });
-    const signInResult: SignInResult = await signIn();
-    setResult(signInResult);
+
     if (result?.user) {
       Cookies.set("userId", result.user.UID);
       Cookies.set("publicKey", result.user.wallets.ethereum.publicKey);
+      Cookies.set("phase", "1");
     }
+  }, [result]);
+
+  async function initWallet() {
+    const signInResult: SignInResult = await signIn();
+    setResult(signInResult);
   }
+  console.log(result);
 
   return (
     <main className="h-full w-full">
@@ -47,8 +55,11 @@ export default function Home() {
       >
         <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full">
           <div className="bg-slate-950 flex flex-col align-middle justify-start px-6 py-5 border-b-2 border-gray-200">
-            <Text size="6" weight="bold" className="text-gray-50">
-              LOGIN WITH RAMPER
+            <Text size="6" weight="bold" className="text-gray-50 mb-2">
+              회원가입
+            </Text>
+            <Text size="2" weight="medium" className="text-gray-400">
+              1/2
             </Text>
           </div>
           <div className="flex flex-col justify-between p-6 md:w-8/12 h-96">

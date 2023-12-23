@@ -1,5 +1,6 @@
 "use client";
 
+import { CloudinaryRes } from "@/app/types/cloudinary";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,6 +13,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 const formSchema = z.object({
@@ -19,22 +22,52 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "이름은 2글자 이상이어야 합니다." })
     .max(20, { message: "이름은 20글자 이하여야 합니다." }),
-  studentId: z.string().length(12, { message: "학번은 12글자여야 합니다." }),
-  profileImage: z.string(),
+  studentId: z.string().length(10, { message: "학번은 10글자여야 합니다." }),
+  profileImage: z.instanceof(File).nullable(),
 });
 
 export default function RegisterForm() {
+  const [profileImg, setProfileImg] = useState<File | null>(null);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    setProfileImg(selectedFile || null);
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       studentId: "",
-      profileImage: "",
+      profileImage: null,
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      const formData = new FormData();
+      formData.append("file", profileImg!);
+      await axios
+        .post(
+          //Cloud Name : dheikvmxu
+          "https://api.cloudinary.com/v1_1/dheikvmxu/image/upload",
+          formData,
+          {
+            params: {
+              upload_preset: "fpzdtvvt",
+              api_key: "315526953864782",
+            },
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((res) => {
+          const data: CloudinaryRes = res.data;
+          console.log(data.url);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -46,9 +79,8 @@ export default function RegisterForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>이름</FormLabel>
-              <FormDescription>이름을 입력해주세요.</FormDescription>
               <FormControl>
-                <Input placeholder="이름" {...field} />
+                <Input placeholder="이름을 입력해주세요." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,9 +92,8 @@ export default function RegisterForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>학번</FormLabel>
-              <FormDescription>학번을 입력해주세요.</FormDescription>
               <FormControl>
-                <Input placeholder="학번" {...field} />
+                <Input placeholder="학번을 입력해주세요." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -76,7 +107,11 @@ export default function RegisterForm() {
               <FormLabel>프로필 이미지</FormLabel>
               <FormDescription>jpg, png 이미지만 가능합니다</FormDescription>
               <FormControl>
-                <Input type="file" {...field} />
+                <Input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
