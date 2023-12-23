@@ -1,5 +1,4 @@
 "use client";
-
 import { CloudinaryRes } from "@/app/types/cloudinary";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,11 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import ToastEmitter from "@/hooks/toastEmitter";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import "react-toastify/dist/ReactToastify.css";
 import z from "zod";
+import MyToastContainer from "../toast/toast";
 const formSchema = z.object({
   username: z
     .string()
@@ -27,6 +30,7 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [profileImg, setProfileImg] = useState<File | null>(null);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -64,9 +68,12 @@ export default function RegisterForm() {
         .then((res) => {
           const data: CloudinaryRes = res.data;
           console.log(data.url);
+          ToastEmitter({ type: "success", text: "회원가입 성공!" });
+          router.push("/studies");
         });
     } catch (err) {
       console.log(err);
+      ToastEmitter({ type: "success", text: "회원가입 실패!" });
     }
   }
 
@@ -120,6 +127,7 @@ export default function RegisterForm() {
         <div className="h-8" />
         <Button type="submit">회원가입</Button>
       </form>
+      <MyToastContainer position="bottom-left" autoClose={2000} theme="light" />
     </Form>
   );
 }
