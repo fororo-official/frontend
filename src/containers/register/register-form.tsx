@@ -26,7 +26,7 @@ const formSchema = z.object({
     .min(2, { message: "이름은 2글자 이상이어야 합니다." })
     .max(20, { message: "이름은 20글자 이하여야 합니다." }),
   studentId: z.string().length(10, { message: "학번은 10글자여야 합니다." }),
-  profileImage: z.instanceof(File).nullable(),
+  profileImage: z.string().optional(),
 });
 
 export default function RegisterForm() {
@@ -42,7 +42,7 @@ export default function RegisterForm() {
     defaultValues: {
       username: "",
       studentId: "",
-      profileImage: null,
+      profileImage: undefined,
     },
   });
 
