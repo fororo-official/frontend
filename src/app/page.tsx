@@ -3,25 +3,29 @@ import { Button } from "@/components/ui/button";
 import { Flex, Text } from "@radix-ui/themes";
 import {
   AUTH_PROVIDER,
+  CHAIN,
   SUPPORTED_ETHEREUM_NETWORKS,
   SignInResult,
   THEME,
   WALLET_PROVIDER,
+  getUser,
+  getWalletModel,
   init,
   signIn,
-  getUser,
 } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 export default function Home() {
   const [result, setResult] = useState<SignInResult>();
+  const wallet = useMemo(() => {
+    return result ? getWalletModel(window.localStorage, CHAIN.ETHEREUM) : null;
+  }, [result]);
 
   // if user logged in, redirect to /home
   useEffect(() => {
     const user = getUser();
-    console.log(user);
   });
 
   useEffect(() => {

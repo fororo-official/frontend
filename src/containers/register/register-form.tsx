@@ -71,7 +71,7 @@ export default function RegisterForm() {
           const data: CloudinaryRes = res.data;
           console.log(data.url);
           localStorage.setItem("born", "true");
-          router.push("/studies");
+          router.push("/home");
           ToastEmitter({ type: "success", text: "회원가입 성공!" });
         });
     } catch (err) {
