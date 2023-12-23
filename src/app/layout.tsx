@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { cn } from "@/../lib/utils";
+import { cn } from "@/lib/utils";
 import { Footer } from "@/components/footer";
 import { NavigationBar } from "@/components/navigation-bar";
 import { Theme } from "@radix-ui/themes";

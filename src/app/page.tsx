@@ -9,6 +9,7 @@ import {
   WALLET_PROVIDER,
   init,
   signIn,
+  getUser,
 } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Image from "next/image";
@@ -16,6 +17,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 export default function Home() {
   const [result, setResult] = useState<SignInResult>();
+
+  // if user logged in, redirect to /home
+  useEffect(() => {
+    const user = getUser();
+    console.log(user);
+  });
+
   useEffect(() => {
     init({
       appId: "hrbpivofet",
@@ -37,13 +45,13 @@ export default function Home() {
       Cookies.set("userId", result.user.UID);
       Cookies.set("publicKey", result.user.wallets.ethereum.publicKey);
     }
+    console.log(result);
   }, [result]);
 
   async function initWallet() {
     const signInResult: SignInResult = await signIn();
     setResult(signInResult);
   }
-  console.log(result);
 
   return (
     <main className="h-full w-full">
