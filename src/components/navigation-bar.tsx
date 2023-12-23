@@ -1,13 +1,13 @@
 import Link from "next/link"
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetTrigger } from "./ui/sheet";
 import { FiMenu } from "react-icons/fi";
 
 export function NavigationBar() {
   return (
     <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
-      <Link href="#">
+      <Link href="/">
         <div className="flex items-center">
           <Image src="/forif.svg"
             alt="Logo"
@@ -19,7 +19,7 @@ export function NavigationBar() {
       <nav className="flex items-center space-x-6 max-md:hidden">
         <NavTab href="/attendance">전자출결</NavTab>
         <NavTab href="/board">게시판</NavTab>
-        <NavTab href="/mypage">마이페이지</NavTab>
+        <NavTab href="/profile">프로필</NavTab>
         <Button
           variant="outline"
         >
@@ -38,14 +38,18 @@ export function NavigationBar() {
               </Button>
           </SheetTrigger>
           <SheetContent className="w-64">
-            <div className="flex flex-col space-y-2">
-              <NavTab href="/attendance">전자출결</NavTab>
-              <NavTab href="/board">게시판</NavTab>
-              <NavTab href="/mypage">마이페이지</NavTab>
-              <Button
-                variant="outline"
-              >로그인 / 회원가입</Button>
-            </div>
+            <SheetFooter>
+              <SheetClose asChild>
+                <div className="flex flex-col space-y-2">
+                  <NavTab href="/attendance">전자출결</NavTab>
+                  <NavTab href="/board">게시판</NavTab>
+                  <NavTab href="/profile">프로필</NavTab>
+                  <Button
+                    variant="outline"
+                  >로그인 / 회원가입</Button>
+                </div>
+              </SheetClose>
+            </SheetFooter>
           </SheetContent>
         </Sheet>
       </nav>
