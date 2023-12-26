@@ -1,18 +1,17 @@
-import StudyCard, { StudyCardType } from "@/components/common/study-card";
+import { StudyCardContainerInterface } from "@/app/types/study";
+import StudyCard from "@/components/common/study-card";
 
-function StudyCardContainer({ showAttendance }: StudyCardType) {
-  const studyList = [
-    "React + Typescript 스터디",
-    "C를 잘해야 A+이 가능합니다",
-    "포리프 화이팅 스터디",
-  ];
+function StudyCardContainer({ studyValue }: StudyCardContainerInterface) {
   return (
     <div className="flex flex-col gap-2">
-      {studyList.map((studyname, idx) => (
+      {studyValue.map((val, idx) => (
         <StudyCard
+          name={val.name}
+          mentor={val.mentor}
+          startTime={val.startTime}
+          endTime={val.endTime}
+          attendance={val.attendance}
           key={idx}
-          showAttendance={showAttendance}
-          studyName={studyname}
         />
       ))}
     </div>
