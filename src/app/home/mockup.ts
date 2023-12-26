@@ -10,7 +10,6 @@ const studyCard1: StudyCardInterface = {
   endTime: "18:00",
   mentor: "김건재",
   type: "정규스터디",
-  attendance: false,
   lang: [studyLangs.React, studyLangs.Javascript],
 };
 const studyCard2: StudyCardInterface = {
@@ -19,7 +18,6 @@ const studyCard2: StudyCardInterface = {
   endTime: "15:00",
   mentor: "김민진",
   type: "정규스터디",
-  attendance: false,
   lang: [studyLangs.C],
 };
 const studyCard3: StudyCardInterface = {
@@ -28,7 +26,6 @@ const studyCard3: StudyCardInterface = {
   endTime: "17:00",
   mentor: "양병현",
   type: "자율스터디",
-  attendance: false,
   lang: [studyLangs.Python],
 };
 const studyCard4: StudyCardInterface = {
@@ -37,12 +34,21 @@ const studyCard4: StudyCardInterface = {
   endTime: "19:00",
   mentor: "표준성",
   type: "자율스터디",
-  attendance: false,
+  lang: [studyLangs.Java],
+};
+
+const studyCard5: StudyCardInterface = {
+  name: "자바를 잡아보자구",
+  startTime: "15:00",
+  endTime: "19:00",
+  mentor: "송우정",
+  type: "정규스터디",
   lang: [studyLangs.Java],
 };
 
 const ExampleStudyCards: StudyCardContainerInterface = {
-  studyValue: [studyCard1, studyCard2, studyCard3, studyCard4],
+  studyValue: [studyCard1, studyCard2, studyCard3, studyCard4, studyCard5],
+  attendance: false,
 };
 
 export default ExampleStudyCards;

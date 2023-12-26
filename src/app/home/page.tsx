@@ -37,7 +37,10 @@ function HomePage() {
             검색결과와 일치하는 스터디가 존재하지 않습니다.
           </h1>
         ) : (
-          <StudyCardContainer studyValue={filteredStudyData} />
+          <StudyCardContainer
+            studyValue={filteredStudyData}
+            attendance={false}
+          />
         )}
       </div>
     </>

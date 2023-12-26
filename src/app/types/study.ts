@@ -3,13 +3,14 @@ interface StudyCardInterface {
   startTime: string;
   endTime: string;
   mentor: string;
-  attendance: boolean;
+  attendance?: boolean;
   type: "정규스터디" | "자율스터디";
   lang: studyLangs[];
 }
 
 interface StudyCardContainerInterface {
   studyValue: StudyCardInterface[];
+  attendance: boolean;
 }
 
 export enum studyLangs {
