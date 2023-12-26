@@ -11,6 +11,8 @@ function HomeStudyCardContainer({ studyValue }: StudyCardContainerInterface) {
           startTime={val.startTime}
           endTime={val.endTime}
           attendance={val.attendance}
+          lang={val.lang}
+          type={val.type}
           key={idx}
         />
       ))}

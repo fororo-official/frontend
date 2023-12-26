@@ -6,7 +6,9 @@ import getNFTs from "@/hooks/getNFT";
 import { Text } from "@radix-ui/themes";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
+import ExampleStudyCards from "../home/mockup";
 function ProfilePage() {
+  const StudyCards = ExampleStudyCards;
   useEffect(() => {
     const publicKey = Cookies.get("publicKey");
     if (publicKey) {
@@ -27,7 +29,10 @@ function ProfilePage() {
         <Text size="2" weight="medium" className="text-gray-400 pb-3">
           3개의 스터디가 진행중입니다.
         </Text>
-        <StudyCardContainer showAttendance />
+        <StudyCardContainer
+          studyValue={StudyCards.studyValue}
+          attendance={StudyCards.attendance}
+        />
       </div>
       <div className="flex flex-col w-10/12 max-w-4xl py-2">
         <Text size="5" weight="bold" className="text-gray-900">

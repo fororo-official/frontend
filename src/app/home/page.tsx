@@ -11,7 +11,6 @@ function HomePage() {
     useStudySearch({
       studyData: StudyCards,
     });
-  console.log(searchInput, filteredStudyData);
 
   return (
     <>
