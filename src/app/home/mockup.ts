@@ -1,6 +1,7 @@
 import {
   StudyCardContainerInterface,
   StudyCardInterface,
+  studyLangs,
 } from "../types/study";
 
 const studyCard1: StudyCardInterface = {
@@ -8,28 +9,36 @@ const studyCard1: StudyCardInterface = {
   startTime: "16:00",
   endTime: "18:00",
   mentor: "김건재",
+  type: "정규스터디",
   attendance: false,
+  lang: [studyLangs.React, studyLangs.Javascript],
 };
 const studyCard2: StudyCardInterface = {
   name: "C를 잘해야 A+이 가능합니다",
   startTime: "13:00",
   endTime: "15:00",
   mentor: "김민진",
+  type: "정규스터디",
   attendance: false,
+  lang: [studyLangs.C],
 };
 const studyCard3: StudyCardInterface = {
-  name: "포리프 화이팅 스터디",
+  name: "파이썬은 위대한 언어이다",
   startTime: "14:00",
   endTime: "17:00",
   mentor: "양병현",
+  type: "자율스터디",
   attendance: false,
+  lang: [studyLangs.Python],
 };
 const studyCard4: StudyCardInterface = {
   name: "Java + Spring",
   startTime: "15:00",
   endTime: "19:00",
   mentor: "표준성",
+  type: "자율스터디",
   attendance: false,
+  lang: [studyLangs.Java],
 };
 
 const ExampleStudyCards: StudyCardContainerInterface = {

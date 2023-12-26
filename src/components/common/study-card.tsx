@@ -1,13 +1,15 @@
-import { StudyCardInterface } from "@/app/types/study";
+import { StudyCardInterface, langColorMap } from "@/app/types/study";
 import { Badge } from "@/components/ui/badge";
-import { Text } from "@radix-ui/themes";
+import { Flex, Text } from "@radix-ui/themes";
 
 function StudyCard({
   name,
   mentor,
   attendance,
+  lang,
   endTime,
   startTime,
+  type,
 }: StudyCardInterface) {
   return (
     <div className="flex justify-start bg-white border border-gray-200 rounded-lg active:bg-gray-50 overflow-hidden">
@@ -19,7 +21,21 @@ function StudyCard({
       .
       <div className="flex flex-1">
         <div className="flex-1 flex flex-col justify-start items-start p-4">
-          <Badge className="mb-0.5">정규스터디</Badge>
+          <Flex gap="2">
+            <Badge className="mb-0.5">{type}</Badge>
+            {lang.map((val, idx) => (
+              <Badge
+                className={`mb-0.5 bg-${langColorMap[
+                  val
+                ].toLowerCase()}-500 hover:bg-${langColorMap[
+                  val
+                ].toLowerCase()}-400`}
+                key={idx}
+              >
+                {val}
+              </Badge>
+            ))}
+          </Flex>
           <Text size="3" className="text-gray-900 font-semibold">
             {name}
           </Text>
