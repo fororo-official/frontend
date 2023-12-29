@@ -285,8 +285,6 @@ async function getNFTs(publicKey: string) {
 
   // view 함수 호출
   const res = await contract.methods.getTokenURIOf(publicKey).call();
-
-  console.log(res);
   return res;
 }
 

@@ -2,21 +2,10 @@
 import Summary from "@/components/pages/profile/summary";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
 import StudyCardContainer from "@/containers/profile/study-card-container";
-import getNFTs from "@/hooks/getNFT";
 import { Text } from "@radix-ui/themes";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
 import ExampleStudyCards from "../home/mockup";
 function ProfilePage() {
   const StudyCards = ExampleStudyCards;
-  useEffect(() => {
-    const publicKey = Cookies.get("publicKey");
-    if (publicKey) {
-      console.log(publicKey);
-
-      getNFTs(publicKey);
-    }
-  });
   return (
     <>
       <Summary />
