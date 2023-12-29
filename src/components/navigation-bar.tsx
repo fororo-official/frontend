@@ -11,9 +11,15 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Sheet, SheetClose, SheetContent, SheetFooter, SheetTrigger } from "./ui/sheet";
 import { FiMenu } from "react-icons/fi";
+import { Button } from "./ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetTrigger,
+} from "./ui/sheet";
 
 export function NavigationBar() {
   const [publicKey, setPublicKey] = useState<string>();
@@ -32,7 +38,7 @@ export function NavigationBar() {
       theme: THEME.DARK,
     });
     const signInResult: SignInResult = await signIn();
-    setPublicKey(signInResult.user?.wallets.ethereum.publicKey);
+    console.log(signInResult);
   }
   return (
     <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
