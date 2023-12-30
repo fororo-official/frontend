@@ -29,7 +29,7 @@ function HomePage() {
             placeholder="스터디 이름 또는 언어로 검색해보세요!"
             onChange={(e) => handlesearchInputChange(e.target.value)}
           />
-          <Button>나이스</Button>
+          <Button>검색</Button>
         </div>
         {searchInput && filteredStudyData.length === 0 ? (
           <h1 className="text-base font-bold">

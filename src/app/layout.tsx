@@ -46,6 +46,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>FORIF</title>
+      </head>
       <body className={cn("h-full scrollbar-hide", inter.className)}>
         <Theme accentColor="iris" className="h-full">
           <NavigationBar />
