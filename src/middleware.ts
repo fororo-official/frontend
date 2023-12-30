@@ -7,7 +7,6 @@ export function middleware(request: NextRequest) {
   //유저가 최초 회원가입 절차를 거치려고 할때
   if (pathname == "/" || pathname == "/auth/signup") {
     if (userId) return NextResponse.rewrite(new URL("/home", request.url));
-    else return NextResponse.redirect(new URL("/", request.url));
   }
   //프로필 페이지 접근
   else if (pathname == "/profile" || pathname.startsWith("/setting")) {
