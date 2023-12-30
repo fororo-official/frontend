@@ -7,14 +7,18 @@ import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 export default function Home() {
+  const pathname = usePathname();
+  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
+  console.log(pathname);
 
   useEffect(() => {
     // 웹페이지 처음 로딩 시 Wallet 초기화
     initWallet();
+    // 현재 로그인 상태인지 확인
     async function checkLoginStatus() {
       const idToken = Cookies.get("ramperIdToken");
       if (idToken) {
