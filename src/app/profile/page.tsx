@@ -3,41 +3,18 @@ import Summary from "@/components/pages/profile/summary";
 import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
 import StudyCardContainer from "@/containers/profile/study-card-container";
-import MyToastContainer from "@/containers/toast/toast";
 import ToastEmitter from "@/hooks/toastEmitter";
 import { Text } from "@radix-ui/themes";
 import { signOut } from "@ramper/ethereum";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import ExampleStudyCards from "../home/mockup";
 function ProfilePage() {
-  const [alertMessage, setAlertMessage] = useState("");
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const alertMessageFromUrl = urlParams.get("alert");
-    console.log("URL에서 가져온 알림 메시지:", alertMessageFromUrl);
-
-    if (alertMessageFromUrl) {
-      setAlertMessage(alertMessageFromUrl);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (alertMessage) {
-      alert(alertMessage);
-      // 경고 메시지를 띄웠으므로 다시 빈 문자열로 초기화
-      setAlertMessage("");
-    }
-  }, [alertMessage]);
-
-  const router = useRouter();
   function handleSignOut() {
     signOut();
     Cookies.remove("ramperIdToken");
     ToastEmitter({ type: "info", text: "로그아웃하였습니다!" });
-    router.push("/");
+    //로그아웃 후 쿠키 새로고침
+    location.reload();
   }
 
   const StudyCards = ExampleStudyCards;
@@ -73,7 +50,6 @@ function ProfilePage() {
         </Text>
         <Button onClick={handleSignOut}>로그아웃 버튼</Button>
       </div>
-      <MyToastContainer position="bottom-left" autoClose={2000} theme="light" />
     </>
   );
 }

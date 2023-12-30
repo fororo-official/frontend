@@ -1,11 +1,12 @@
 "use client";
 import initWallet from "@/hooks/ramper";
+import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
 import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { Button } from "./ui/button";
 import {
@@ -17,8 +18,34 @@ import {
 } from "./ui/sheet";
 export function NavigationBar() {
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isCheckingLogin, setIsCheckingLogin] = useState<boolean>(true);
+
   useEffect(() => {
     initWallet();
+    async function checkLoginStatus() {
+      setIsCheckingLogin(true);
+      const idToken = Cookies.get("ramperIdToken");
+      if (idToken) {
+        try {
+          // ID 토큰 검증
+          const userId: string = await verifyRamperIdToken(
+            idToken,
+            process.env.NEXT_PUBLIC_RAMPER_API_SECRET!
+          );
+          // 검증 성공 시 로그인 상태를 true로 설정
+          setIsLoggedIn(true);
+        } catch (error) {
+          // 검증 실패 시 쿠키 삭제 및 로그인 상태를 false로 설정
+          Cookies.remove("ramperIdToken");
+          setIsLoggedIn(false);
+        }
+      } else {
+        setIsLoggedIn(false);
+      }
+      setIsCheckingLogin(false);
+    }
+    checkLoginStatus();
   }, []);
 
   async function handleLogin() {
@@ -29,8 +56,8 @@ export function NavigationBar() {
         signInResult.user?.ramperCredential?.idToken!
       );
       //로그인 후 쿠키 새로고침
-      router.push("/");
-      router.refresh();
+
+      location.reload();
     } catch (err) {
       console.error("로그인 실패", err);
     }
@@ -51,14 +78,22 @@ export function NavigationBar() {
           />
         </div>
       </Link>
-      <nav className="flex items-center space-x-6 max-md:hidden">
-        <NavTab href="/attendance">전자출결</NavTab>
-        <NavTab href="/board">게시판</NavTab>
-        <NavTab href="/profile">프로필</NavTab>
-        <Button variant="outline" onClick={handleLogin}>
-          로그인
-        </Button>
-      </nav>
+      {isCheckingLogin ? (
+        <nav className="flex items-center space-x-6 max-md:hidden">
+          <NavTab href="/">로딩 중..</NavTab>
+        </nav>
+      ) : (
+        <nav className="flex items-center space-x-6 max-md:hidden">
+          <NavTab href="/attendance">전자출결</NavTab>
+          <NavTab href="/board">게시판</NavTab>
+          <NavTab href="/profile">프로필</NavTab>
+          {!isLoggedIn && (
+            <Button variant="outline" onClick={handleLogin}>
+              로그인
+            </Button>
+          )}
+        </nav>
+      )}
       {/* dropdown menu */}
       <nav className="hidden max-md:flex items-center space-x-6">
         <Sheet>
@@ -70,12 +105,18 @@ export function NavigationBar() {
           <SheetContent className="w-64">
             <SheetFooter>
               <SheetClose asChild>
-                <div className="flex flex-col space-y-2">
-                  <NavTab href="/attendance">전자출결</NavTab>
-                  <NavTab href="/board">게시판</NavTab>
-                  <NavTab href="/profile">프로필</NavTab>
-                  <Button variant="outline">로그인 / 회원가입</Button>
-                </div>
+                {isCheckingLogin ? (
+                  <div className="flex flex-col space-y-2">
+                    <NavTab href="/">로딩 중..</NavTab>
+                  </div>
+                ) : (
+                  <div className="flex flex-col space-y-2">
+                    <NavTab href="/attendance">전자출결</NavTab>
+                    <NavTab href="/board">게시판</NavTab>
+                    <NavTab href="/profile">프로필</NavTab>
+                    {!isLoggedIn && <Button variant="outline">로그인</Button>}
+                  </div>
+                )}
               </SheetClose>
             </SheetFooter>
           </SheetContent>

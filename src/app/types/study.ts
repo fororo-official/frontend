@@ -28,7 +28,7 @@ export const langColorMap: Record<studyLangs, string> = {
   [studyLangs.Java]: "orange",
   [studyLangs.Python]: "yellow",
   [studyLangs.Javascript]: "purple",
-  [studyLangs.React]: "pink",
+  [studyLangs.React]: "rose",
 };
 
 export type { StudyCardContainerInterface, StudyCardInterface };

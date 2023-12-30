@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
     else return NextResponse.redirect(new URL("/", request.url));
   }
   //프로필 페이지 접근
-  else if (pathname == "/profile") {
+  else if (pathname == "/profile" || pathname.startsWith("/setting")) {
     //회원가입 절차는 마무리했지만, 로그아웃 기능을 통해 로그아웃했을 때
     if (!idToken) {
       return NextResponse.redirect(

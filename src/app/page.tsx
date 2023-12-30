@@ -30,7 +30,6 @@ export default function Home() {
           );
           // 검증 성공 시 로그인 상태를 true로 설정
           setIsLoggedIn(true);
-          console.log(userId);
         } catch (error) {
           // 검증 실패 시 쿠키 삭제 및 로그인 상태를 false로 설정
           Cookies.remove("ramperIdToken");

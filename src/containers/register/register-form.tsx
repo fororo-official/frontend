@@ -19,7 +19,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import z from "zod";
-import MyToastContainer from "../toast/toast";
 const formSchema = z.object({
   username: z
     .string()
@@ -113,7 +112,6 @@ export default function RegisterForm() {
         <div className="h-8" />
         <Button type="submit">회원가입</Button>
       </form>
-      <MyToastContainer position="bottom-left" autoClose={2000} theme="light" />
     </Form>
   );
 }

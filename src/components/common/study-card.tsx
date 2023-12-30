@@ -1,6 +1,7 @@
 import { StudyCardInterface, langColorMap } from "@/app/types/study";
 import { Badge } from "@/components/ui/badge";
 import { Flex, Text } from "@radix-ui/themes";
+import Image from "next/image";
 
 function StudyCard({
   name,
@@ -13,12 +14,14 @@ function StudyCard({
 }: StudyCardInterface) {
   return (
     <div className="flex justify-start bg-white border border-gray-200 rounded-lg active:bg-gray-50 overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1634618948828-aa7b3d0724fd?q=80&w=2880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      <Image
+        src="/study/basic-study-cover.avif"
         className="w-32 h-32 object-cover max-md:hidden"
         alt="study"
+        width="128"
+        height="128"
+        priority
       />
-      .
       <div className="flex flex-1">
         <div className="flex-1 flex flex-col justify-start items-start p-4">
           <Flex gap="2">
