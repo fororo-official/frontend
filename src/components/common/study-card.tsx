@@ -42,10 +42,10 @@ function StudyCard({
           <Text size="3" className="text-gray-900 font-semibold">
             {name}
           </Text>
-          <Text size="2" className="text-gray-400">
+          <Text size="2" className="text-gray-600">
             매주 화요일 {startTime} ~ {endTime}
           </Text>
-          <Text size="2" className="text-gray-400">
+          <Text size="2" className="text-gray-600">
             {mentor} 멘토
           </Text>
         </div>
