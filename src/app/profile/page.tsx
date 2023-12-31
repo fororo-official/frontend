@@ -44,11 +44,17 @@ function ProfilePage() {
         </Text>
         <CertificateCardContainer />
       </div>
-      <div className="flex flex-col w-10/12 max-w-4xl py-2 gap-4">
+      <div className="flex flex-col w-10/12 max-w-4xl py-2 gap-4 flex-wrap">
         <Text size="5" weight="bold" className="text-gray-900">
-          로그아웃
+          계정
         </Text>
-        <Button onClick={handleSignOut}>로그아웃 버튼</Button>
+        <Button
+          variant={"destructive"}
+          onClick={handleSignOut}
+          className="w-32"
+        >
+          로그아웃
+        </Button>
       </div>
     </>
   );

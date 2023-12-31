@@ -5,7 +5,11 @@ import {
   WALLET_PROVIDER,
   init,
 } from "@ramper/ethereum";
-
+/**
+ * Initialize wallet using ramper
+ * @author standardwish
+ * @returns nothing
+ */
 function initWallet() {
   init({
     appId: "hrbpivofet",

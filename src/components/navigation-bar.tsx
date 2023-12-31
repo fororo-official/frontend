@@ -1,5 +1,5 @@
 "use client";
-import initWallet from "@/hooks/ramper";
+import initWallet from "@/hooks/initWallet";
 import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
 import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";

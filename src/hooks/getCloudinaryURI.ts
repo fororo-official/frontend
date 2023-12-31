@@ -1,6 +1,11 @@
 import { CloudinaryRes } from "@/app/types/cloudinary";
 import axios from "axios";
-
+/**
+ * Get image uri posted by cloudinary api
+ * @param profileImg
+ * @param studentId
+ * @returns Img uri
+ */
 async function getCloudinaryURI(profileImg: File, studentId: string) {
   const formData = new FormData();
   formData.append("file", profileImg);

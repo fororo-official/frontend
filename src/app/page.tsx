@@ -1,19 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import initWallet from "@/hooks/ramper";
+import initWallet from "@/hooks/initWallet";
+import ToastEmitter from "@/hooks/toastEmitter";
 import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
 import { Flex, Text } from "@radix-ui/themes";
 import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Home() {
-  const pathname = usePathname();
-  const router = useRouter();
+  //초기 로그인 시 다음 단계로 넘어가기 위한 local state
   const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
-  console.log(pathname);
 
   useEffect(() => {
     // 웹페이지 처음 로딩 시 Wallet 초기화
@@ -28,7 +26,6 @@ export default function Home() {
             idToken,
             process.env.NEXT_PUBLIC_RAMPER_API_SECRET!
           );
-          // 검증 성공 시 로그인 상태를 true로 설정
           setIsLoggedIn(true);
         } catch (error) {
           // 검증 실패 시 쿠키 삭제 및 로그인 상태를 false로 설정
@@ -49,7 +46,7 @@ export default function Home() {
       );
       setIsLoggedIn(true);
     } catch (err) {
-      console.error("로그인 실패", err);
+      ToastEmitter({ type: "error", text: JSON.stringify(err) });
     }
   }
 
