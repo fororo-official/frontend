@@ -44,7 +44,7 @@ export function NavigationBar() {
     <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
       <Link href="/">
         <div className="flex items-center">
-          <Image src="/forif.svg" alt="Logo" width={90} height={90} />
+          <Image src="/icons/forif.svg" alt="Logo" width={90} height={90} />
         </div>
       </Link>
       <nav className="flex items-center space-x-6 max-md:hidden">
