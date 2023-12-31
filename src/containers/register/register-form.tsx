@@ -51,11 +51,10 @@ export default function RegisterForm() {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       //유저의 학번으로 이름을 가진 프로필 이미지를 cloudinary에 업로드한다.
-      //2023063845.png
+      //예시 : 2023063845.png
       const cloudinaryURI = await getCloudinaryURI(profileImg!, data.studentId);
       Cookies.set("userId", data.studentId);
-      router.refresh();
-      ToastEmitter({ type: "success", text: "회원가입 성공!" });
+      location.href = "/home?status=signUpSuccess";
     } catch (err) {
       console.log(err);
       ToastEmitter({ type: "success", text: "회원가입 실패!" });

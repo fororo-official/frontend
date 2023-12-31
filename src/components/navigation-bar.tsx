@@ -55,9 +55,15 @@ export function NavigationBar() {
         "ramperIdToken",
         signInResult.user?.ramperCredential?.idToken!
       );
-      //로그인 후 쿠키 새로고침
 
-      location.reload();
+      //로그인 후 쿠키 새로고침
+      console.log();
+
+      if (signInResult.method === "cancel") {
+        router.push("/home?status=signInCancel");
+      } else {
+        location.href = "/home?status=signInSuccess";
+      }
     } catch (err) {
       console.error("로그인 실패", err);
     }

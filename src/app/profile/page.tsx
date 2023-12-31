@@ -3,18 +3,19 @@ import Summary from "@/components/pages/profile/summary";
 import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
 import StudyCardContainer from "@/containers/profile/study-card-container";
-import ToastEmitter from "@/hooks/toastEmitter";
 import { Text } from "@radix-ui/themes";
 import { signOut } from "@ramper/ethereum";
 import Cookies from "js-cookie";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ExampleStudyCards from "../home/mockup";
 function ProfilePage() {
+  const router = useRouter();
   function handleSignOut() {
     signOut();
     Cookies.remove("ramperIdToken");
-    ToastEmitter({ type: "info", text: "로그아웃하였습니다!" });
     //로그아웃 후 쿠키 새로고침
-    location.reload();
+    location.href = "/home?status=signOut";
   }
 
   const StudyCards = ExampleStudyCards;
@@ -48,13 +49,18 @@ function ProfilePage() {
         <Text size="5" weight="bold" className="text-gray-900">
           계정
         </Text>
-        <Button
-          variant={"destructive"}
-          onClick={handleSignOut}
-          className="w-32"
-        >
-          로그아웃
-        </Button>
+        <div className="flex flex-row gap-3 justify-start">
+          <Link href={"/setting"}>
+            <Button className="w-32">설정</Button>
+          </Link>
+          <Button
+            variant={"destructive"}
+            onClick={handleSignOut}
+            className="w-32"
+          >
+            로그아웃
+          </Button>
+        </div>
       </div>
     </>
   );

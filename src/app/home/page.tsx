@@ -2,10 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import StudyCardContainer from "@/containers/profile/study-card-container";
+import handleQueryAndToast from "@/hooks/handleQueryAndToast";
 import useStudySearch from "@/hooks/search-study";
 import ExampleStudyCards from "./mockup";
-
 function HomePage() {
+  handleQueryAndToast();
+
   const StudyCards = ExampleStudyCards;
   const { searchInput, filteredStudyData, handlesearchInputChange } =
     useStudySearch({
