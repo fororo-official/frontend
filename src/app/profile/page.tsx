@@ -1,22 +1,24 @@
 "use client";
 import Summary from "@/components/pages/profile/summary";
+import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
 import StudyCardContainer from "@/containers/profile/study-card-container";
-import getNFTs from "@/hooks/getNFT";
 import { Text } from "@radix-ui/themes";
+import { signOut } from "@ramper/ethereum";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ExampleStudyCards from "../home/mockup";
 function ProfilePage() {
-  const StudyCards = ExampleStudyCards;
-  useEffect(() => {
-    const publicKey = Cookies.get("publicKey");
-    if (publicKey) {
-      console.log(publicKey);
+  const router = useRouter();
+  function handleSignOut() {
+    signOut();
+    Cookies.remove("ramperIdToken");
+    //로그아웃 후 쿠키 새로고침
+    location.href = "/home?status=signOut";
+  }
 
-      getNFTs(publicKey);
-    }
-  });
+  const StudyCards = ExampleStudyCards;
   return (
     <>
       <Summary />
@@ -42,6 +44,23 @@ function ProfilePage() {
           3개의 스터디를 수료했습니다.
         </Text>
         <CertificateCardContainer />
+      </div>
+      <div className="flex flex-col w-10/12 max-w-4xl py-2 gap-4 flex-wrap">
+        <Text size="5" weight="bold" className="text-gray-900">
+          계정
+        </Text>
+        <div className="flex flex-row gap-3 justify-start">
+          <Link href={"/setting"}>
+            <Button className="w-32">설정</Button>
+          </Link>
+          <Button
+            variant={"destructive"}
+            onClick={handleSignOut}
+            className="w-32"
+          >
+            로그아웃
+          </Button>
+        </div>
       </div>
     </>
   );

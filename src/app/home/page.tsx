@@ -2,10 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import StudyCardContainer from "@/containers/profile/study-card-container";
+import handleQueryAndToast from "@/hooks/handleQueryAndToast";
 import useStudySearch from "@/hooks/search-study";
 import ExampleStudyCards from "./mockup";
-
 function HomePage() {
+  handleQueryAndToast();
+
   const StudyCards = ExampleStudyCards;
   const { searchInput, filteredStudyData, handlesearchInputChange } =
     useStudySearch({
@@ -29,7 +31,7 @@ function HomePage() {
             placeholder="스터디 이름 또는 언어로 검색해보세요!"
             onChange={(e) => handlesearchInputChange(e.target.value)}
           />
-          <Button>나이스</Button>
+          <Button>검색</Button>
         </div>
         {searchInput && filteredStudyData.length === 0 ? (
           <h1 className="text-base font-bold">

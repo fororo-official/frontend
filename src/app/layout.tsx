@@ -5,6 +5,7 @@ import "./globals.css";
 
 import { Footer } from "@/components/footer";
 import { NavigationBar } from "@/components/navigation-bar";
+import MyToastContainer from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import { Theme } from "@radix-ui/themes";
 
@@ -45,11 +46,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>FORIF</title>
+      </head>
       <body className={cn("h-full scrollbar-hide", inter.className)}>
         <Theme accentColor="iris" className="h-full">
           <NavigationBar />
           {children}
           <Footer />
+          <MyToastContainer
+            autoClose={2000}
+            position="bottom-left"
+            theme="dark"
+          />
         </Theme>
       </body>
     </html>

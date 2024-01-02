@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 interface UseStudySearchProps {
   studyData: StudyCardContainerInterface;
 }
-
+/**
+ * Get filtered study list
+ * @param studyData
+ * @returns filtered Study list
+ */
 const useStudySearch = ({ studyData }: UseStudySearchProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredStudyData, setFilteredStudyData] = useState<

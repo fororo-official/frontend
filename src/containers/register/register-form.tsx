@@ -1,5 +1,4 @@
 "use client";
-import { CloudinaryRes } from "@/app/types/cloudinary";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,15 +10,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import getCloudinaryURI from "@/hooks/getCloudinaryURI";
 import ToastEmitter from "@/hooks/toastEmitter";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import z from "zod";
-import MyToastContainer from "../toast/toast";
 const formSchema = z.object({
   username: z
     .string()
@@ -32,6 +31,8 @@ const formSchema = z.object({
 export default function RegisterForm() {
   const router = useRouter();
   const [profileImg, setProfileImg] = useState<File | null>(null);
+
+  //이미지 선택 함수
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     setProfileImg(selectedFile || null);
@@ -46,34 +47,14 @@ export default function RegisterForm() {
     },
   });
 
+  //submit 버튼 클릭시
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      const formData = new FormData();
-      formData.append("file", profileImg!);
-      await axios
-        .post(
-          //Cloud Name : dheikvmxu
-          "https://api.cloudinary.com/v1_1/dheikvmxu/image/upload",
-          formData,
-          {
-            params: {
-              upload_preset: "fpzdtvvt",
-              api_key: "315526953864782",
-              folder: "profiles",
-              public_id: data.studentId,
-            },
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((res) => {
-          const data: CloudinaryRes = res.data;
-          console.log(data.url);
-          localStorage.setItem("born", "true");
-          router.push("/home");
-          ToastEmitter({ type: "success", text: "회원가입 성공!" });
-        });
+      //유저의 학번으로 이름을 가진 프로필 이미지를 cloudinary에 업로드한다.
+      //예시 : 2023063845.png
+      const cloudinaryURI = await getCloudinaryURI(profileImg!, data.studentId);
+      Cookies.set("userId", data.studentId);
+      location.href = "/home?status=signUpSuccess";
     } catch (err) {
       console.log(err);
       ToastEmitter({ type: "success", text: "회원가입 실패!" });
@@ -130,7 +111,6 @@ export default function RegisterForm() {
         <div className="h-8" />
         <Button type="submit">회원가입</Button>
       </form>
-      <MyToastContainer position="bottom-left" autoClose={2000} theme="light" />
     </Form>
   );
 }

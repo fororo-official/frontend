@@ -278,15 +278,17 @@ const abi = [
     type: "function",
   },
 ] as const;
-
+/**
+ * Get token uri using public key
+ * @param publicKey
+ * @returns 아직 몰라용
+ */
 async function getNFTs(publicKey: string) {
   // 스마트 컨트랙트 인스턴스를 생성합니다.
   const contract = new web3.eth.Contract(abi, contractAddress);
 
   // view 함수 호출
   const res = await contract.methods.getTokenURIOf(publicKey).call();
-
-  console.log(res);
   return res;
 }
 

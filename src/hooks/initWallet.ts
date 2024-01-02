@@ -5,10 +5,15 @@ import {
   WALLET_PROVIDER,
   init,
 } from "@ramper/ethereum";
-
-const initWallet = async () => {
+/**
+ * Initialize wallet using ramper
+ * @author standardwish
+ * @returns nothing
+ */
+function initWallet() {
   init({
-    appName: "EVM Test App",
+    appId: "hrbpivofet",
+    appName: "FORIF",
     authProviders: [
       AUTH_PROVIDER.GOOGLE,
       AUTH_PROVIDER.FACEBOOK,
@@ -19,7 +24,8 @@ const initWallet = async () => {
     walletProviders: [WALLET_PROVIDER.METAMASK],
     network: SUPPORTED_ETHEREUM_NETWORKS.MATICMUM,
     theme: THEME.DARK,
+    issueIdToken: true,
   });
-};
+}
 
-export { initWallet };
+export default initWallet;

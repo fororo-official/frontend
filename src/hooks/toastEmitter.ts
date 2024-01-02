@@ -4,7 +4,11 @@ type ToastType = {
   type: "success" | "warn" | "error" | "info";
   text: string;
 };
-
+/**
+ * Show toast message
+ * @param toast_type
+ * @param text
+ */
 export default function ToastEmitter({ type, text }: ToastType) {
   {
     switch (type) {

@@ -8,4 +8,9 @@ type CloudinaryRes = {
   height: number;
 };
 
-export type { CloudinaryRes };
+type CloudinaryURIType = {
+  profileImg: File;
+  studentId: string;
+};
+
+export type { CloudinaryRes, CloudinaryURIType };

@@ -1,61 +1,54 @@
 "use client";
 import Star from "@/components/common/star";
 import { Button } from "@/components/ui/button";
+import initWallet from "@/hooks/initWallet";
+import ToastEmitter from "@/hooks/toastEmitter";
+import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
 import { Flex, Text } from "@radix-ui/themes";
-import {
-  AUTH_PROVIDER,
-  CHAIN,
-  SUPPORTED_ETHEREUM_NETWORKS,
-  SignInResult,
-  THEME,
-  WALLET_PROVIDER,
-  getUser,
-  getWalletModel,
-  init,
-  signIn,
-} from "@ramper/ethereum";
+import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
-  const [result, setResult] = useState<SignInResult>();
-  const wallet = useMemo(() => {
-    return result ? getWalletModel(window.localStorage, CHAIN.ETHEREUM) : null;
-  }, [result]);
-
-  // if user logged in, redirect to /home
-  useEffect(() => {
-    const user = getUser();
-  });
+  //초기 로그인 시 다음 단계로 넘어가기 위한 local state
+  const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
 
   useEffect(() => {
-    init({
-      appId: "hrbpivofet",
-      appName: "포로로",
-      authProviders: [
-        AUTH_PROVIDER.GOOGLE,
-        AUTH_PROVIDER.FACEBOOK,
-        AUTH_PROVIDER.TWITTER,
-        AUTH_PROVIDER.APPLE,
-        AUTH_PROVIDER.EMAIL,
-      ],
-      walletProviders: [WALLET_PROVIDER.METAMASK],
-      network: SUPPORTED_ETHEREUM_NETWORKS.MATICMUM,
-      theme: THEME.DARK,
-      issueIdToken: true,
-    });
-
-    if (result?.user) {
-      Cookies.set("userId", result.user.UID);
-      Cookies.set("publicKey", result.user.wallets.ethereum.publicKey);
+    // 웹페이지 처음 로딩 시 Wallet 초기화
+    initWallet();
+    // 현재 로그인 상태인지 확인
+    async function checkLoginStatus() {
+      const idToken = Cookies.get("ramperIdToken");
+      if (idToken) {
+        try {
+          // ID 토큰 검증
+          const userId: string = await verifyRamperIdToken(
+            idToken,
+            process.env.NEXT_PUBLIC_RAMPER_API_SECRET!
+          );
+          setIsLoggedIn(true);
+        } catch (error) {
+          // 검증 실패 시 쿠키 삭제 및 로그인 상태를 false로 설정
+          Cookies.remove("ramperIdToken");
+          setIsLoggedIn(false);
+        }
+      }
     }
-    console.log(result);
-  }, [result]);
+    checkLoginStatus();
+  }, []);
 
-  async function initWallet() {
+  async function handleLogin() {
     const signInResult: SignInResult = await signIn();
-    setResult(signInResult);
+    try {
+      Cookies.set(
+        "ramperIdToken",
+        signInResult.user?.ramperCredential?.idToken!
+      );
+      setIsLoggedIn(true);
+    } catch (err) {
+      ToastEmitter({ type: "error", text: JSON.stringify(err) });
+    }
   }
 
   return (
@@ -118,12 +111,12 @@ export default function Home() {
             }
           />
           <div className="flex flex-row p-6 w-full justify-between items-center">
-            {result ? (
+            {isLoggedIn ? (
               <Button type="button">
                 <Link href={"/auth/signup"}>다음</Link>
               </Button>
             ) : (
-              <Button type="button" onClick={initWallet}>
+              <Button type="button" onClick={handleLogin}>
                 RAMPER 회원가입
               </Button>
             )}
