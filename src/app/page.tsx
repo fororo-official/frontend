@@ -1,4 +1,5 @@
 "use client";
+import Star from "@/components/common/star";
 import { Button } from "@/components/ui/button";
 import { Flex, Text } from "@radix-ui/themes";
 import {
@@ -64,7 +65,7 @@ export default function Home() {
         gap="2"
         className="pt-16 px-6 bg-gray-100 h-full flex items-center"
       >
-        <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full">
+        <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full relative">
           <div className="bg-slate-950 flex flex-col align-middle justify-start px-6 py-5 border-b-2 border-gray-200">
             <Text size="6" weight="bold" className="text-gray-50 mb-2">
               회원가입
@@ -100,6 +101,22 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <Star
+            width={50}
+            height={50}
+            fillColor="#000"
+            className={
+              "absolute md:top-32 md:right-20 bottom-3 right-8 md:animate-slow-spin"
+            }
+          />
+          <Star
+            width={30}
+            height={30}
+            fillColor="#000"
+            className={
+              "absolute md:top-80 md:right-4 bottom-24 right-5 md:animate-slow-spin"
+            }
+          />
           <div className="flex flex-row p-6 w-full justify-between items-center">
             {result ? (
               <Button type="button">
