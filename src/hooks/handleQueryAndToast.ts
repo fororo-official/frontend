@@ -23,7 +23,7 @@ function handleQueryAndToast() {
         ToastEmitter({ type: "error", text: "로그인 후 이용가능해요." });
         break;
       case "signOut":
-        ToastEmitter({ type: "error", text: "로그아웃했어요." });
+        ToastEmitter({ type: "info", text: "로그아웃했어요." });
         break;
       case "signUpSuccess":
         ToastEmitter({ type: "success", text: "회원가입에 성공했어요!" });
