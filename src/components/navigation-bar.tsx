@@ -73,15 +73,6 @@ export function NavigationBar() {
     <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
       <Link href="/">
         <div className="flex items-center">
-          <Image
-            src="/forif.svg"
-            alt="Logo"
-            width="0"
-            height="0"
-            sizes="90px"
-            className="w-full h-auto"
-            priority={true}
-          />
         </div>
       </Link>
       {isCheckingLogin ? (
