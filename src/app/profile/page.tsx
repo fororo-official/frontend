@@ -1,4 +1,8 @@
 "use client";
+import AcceptStudyDialog from "@/components/pages/profile/dialog/accept-study-dialog";
+import DeleteStudyDialog from "@/components/pages/profile/dialog/delete-study-dialog";
+import EditStudyDialog from "@/components/pages/profile/dialog/edit-study-dialog";
+import EnrollStudyDialog from "@/components/pages/profile/dialog/enroll-study-dialog";
 import Summary from "@/components/pages/profile/summary";
 import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
@@ -60,6 +64,17 @@ function ProfilePage() {
           >
             로그아웃
           </Button>
+        </div>
+      </div>
+      <div className="flex flex-col w-10/12 max-w-4xl py-2 gap-4 flex-wrap">
+        <Text size="5" weight="bold" className="text-gray-900">
+          관리
+        </Text>
+        <div className="flex flex-row gap-3 justify-start">
+          <AcceptStudyDialog />
+          <EditStudyDialog />
+          <EnrollStudyDialog />
+          <DeleteStudyDialog />
         </div>
       </div>
     </>
