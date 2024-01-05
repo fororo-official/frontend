@@ -5,6 +5,7 @@ import {
 } from "../types/study";
 
 const studyCard1: StudyCardInterface = {
+  sid: 0,
   name: "React + Typescript 스터디",
   startTime: "16:00",
   endTime: "18:00",
@@ -13,6 +14,7 @@ const studyCard1: StudyCardInterface = {
   lang: [studyLangs.React, studyLangs.Javascript],
 };
 const studyCard2: StudyCardInterface = {
+  sid: 1,
   name: "C를 잘해야 A+이 가능합니다",
   startTime: "13:00",
   endTime: "15:00",
@@ -21,6 +23,7 @@ const studyCard2: StudyCardInterface = {
   lang: [studyLangs.C],
 };
 const studyCard3: StudyCardInterface = {
+  sid: 2,
   name: "파이썬은 위대한 언어이다",
   startTime: "14:00",
   endTime: "17:00",
@@ -29,6 +32,7 @@ const studyCard3: StudyCardInterface = {
   lang: [studyLangs.Python],
 };
 const studyCard4: StudyCardInterface = {
+  sid: 3,
   name: "Java + Spring",
   startTime: "15:00",
   endTime: "19:00",
@@ -38,6 +42,7 @@ const studyCard4: StudyCardInterface = {
 };
 
 const studyCard5: StudyCardInterface = {
+  sid: 4,
   name: "자바를 잡아보자구",
   startTime: "15:00",
   endTime: "19:00",

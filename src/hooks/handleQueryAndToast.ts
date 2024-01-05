@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import ToastEmitter from "./toastEmitter";
 export type QueryType = {
@@ -16,7 +16,6 @@ function handleQueryAndToast() {
   const { status } = {
     status: searchParams.get("status") as QueryType["status"],
   };
-  const router = useRouter();
   useEffect(() => {
     switch (status) {
       case "needLogin":
@@ -40,7 +39,6 @@ function handleQueryAndToast() {
       default:
         ToastEmitter({ type: "error", text: "올바르지 않은 파라미터입니다." });
     }
-    router.push("/home");
   }, [status]);
 }
 
