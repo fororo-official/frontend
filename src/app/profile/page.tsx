@@ -8,14 +8,14 @@ import { signOut } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ExampleStudyCards from "../mockup/mockup";
+import ExampleStudyCards from "../../mockup/mockup";
 function ProfilePage() {
   const router = useRouter();
   function handleSignOut() {
     signOut();
     Cookies.remove("ramperIdToken");
     //로그아웃 후 쿠키 새로고침
-    location.href = "/?status=signOut";
+    location.href = "/studies?status=SignOut";
   }
 
   const StudyCards = ExampleStudyCards;

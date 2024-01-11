@@ -24,6 +24,7 @@ function initWallet() {
     walletProviders: [WALLET_PROVIDER.METAMASK],
     network: SUPPORTED_ETHEREUM_NETWORKS.MATICMUM,
     theme: THEME.DARK,
+    issueIdToken: true,
   });
 }
 

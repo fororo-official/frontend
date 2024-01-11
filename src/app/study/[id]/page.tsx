@@ -1,12 +1,30 @@
+import { langColorMap, studyLangs } from "@/app/types/study";
 import Summary from "@/components/pages/profile/summary";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Text } from "@radix-ui/themes";
+import Link from "next/link";
 function Page({ params }: { params: { id: string } }) {
   const name = decodeURIComponent(params.id);
   return (
     <>
       <Summary name={"React + TypeScript 스터디"} info={"양병현"} />
-      <div className="w-10/12 max-w-4xl h-px bg-gray-200 my-4"></div>
+      <div className="flex flex-row w-10/12 max-w-4xl gap-2 justify-start pt-2">
+        <Badge className="mb-0.5">{"정규스터디"}</Badge>
+        {[studyLangs.React, studyLangs.Javascript].map((val, idx) => (
+          <Badge
+            className={`mb-0.5 bg-${langColorMap[
+              val
+            ].toLowerCase()}-500 hover:bg-${langColorMap[
+              val
+            ].toLowerCase()}-400`}
+            key={idx}
+          >
+            {val}
+          </Badge>
+        ))}
+      </div>
+      <div className="w-10/12 max-w-4xl h-px bg-gray-200 mt-2 mb-4" />
       <div className="flex flex-col w-10/12 max-w-4xl py-2 gap-8">
         <div className="mb-2">
           <Text size="3" weight={"medium"} className="text-gray-900">
@@ -39,13 +57,17 @@ function Page({ params }: { params: { id: string } }) {
           <Text size="6" weight="bold" className="text-gray-900 mb-2">
             사용 언어
           </Text>
-          <ul className="">
+          <ul>
             <li>자바스크립트</li>
             <li>리액트</li>
             <li>타입스크립트</li>
           </ul>
         </div>
-        <Button>지원하기</Button>
+        <Button>
+          <Link href={"/apply"} className="w-full">
+            지원하기
+          </Link>
+        </Button>
       </div>
     </>
   );

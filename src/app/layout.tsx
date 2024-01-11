@@ -8,8 +8,12 @@ import { NavigationBar } from "@/components/navigation-bar";
 import MyToastContainer from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import { Theme } from "@radix-ui/themes";
+import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"] });
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.ttf",
+});
 const url = "https://frontend-fororo.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(url),
@@ -49,7 +53,7 @@ export default function RootLayout({
       <head>
         <title>FORIF</title>
       </head>
-      <body className={cn("h-full scrollbar-hide", inter.className)}>
+      <body className={cn("h-full scrollbar-hide", pretendard.className)}>
         <Theme accentColor="iris" className="h-full">
           <NavigationBar />
           {children}

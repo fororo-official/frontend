@@ -1,5 +1,4 @@
 "use client";
-import isSignUp from "@/hooks/check-sign-up";
 import initWallet from "@/hooks/initWallet";
 import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
 import { SignInResult, signIn } from "@ramper/ethereum";
@@ -34,7 +33,6 @@ export function NavigationBar() {
             idToken,
             process.env.NEXT_PUBLIC_RAMPER_API_SECRET!
           );
-          console.log(idToken);
 
           // 검증 성공 시 로그인 상태를 true로 설정
           setIsLoggedIn(true);
@@ -53,7 +51,7 @@ export function NavigationBar() {
 
   async function handleLogin() {
     const signInResult: SignInResult = await signIn();
-    console.log(signInResult);
+    console.log(signInResult.user?.ramperCredential?.idToken);
 
     try {
       Cookies.set(
@@ -63,15 +61,13 @@ export function NavigationBar() {
 
       //로그인 후 쿠키 새로고침
       if (signInResult.method === "cancel") {
-        router.push("/?status=signInCancel");
+        location.href = "/studies?status=SignInCancel";
       } else {
-        const res = await isSignUp(
-          signInResult.user?.wallets.ethereum.publicKey!
-        );
-        console.log(res);
+        location.href = "/studies?status=SignInSuccess";
       }
     } catch (err) {
-      router.push("/?status=signInCancel");
+      setIsLoggedIn(false);
+      location.href = `/studies?status=SignInCancel`;
     }
   }
 
@@ -88,7 +84,7 @@ export function NavigationBar() {
         </nav>
       ) : (
         <nav className="flex items-center space-x-6 max-md:hidden">
-          {isLoggedIn && <NavTab href="/attendance">전자출결</NavTab>}
+          <NavTab href="/studies">스터디 목록</NavTab>
           {isLoggedIn && <NavTab href="/board">게시판</NavTab>}
           {isLoggedIn && <NavTab href="/profile">프로필</NavTab>}
           {!isLoggedIn && (
