@@ -1,12 +1,9 @@
 "use client";
-import {
-  StudyCardContainerInterface,
-  StudyCardInterface,
-} from "@/app/types/study";
+import { StudyContainerInterface, StudyInterface } from "@/app/types/study";
 import { useEffect, useState } from "react";
 
 interface UseStudySearchProps {
-  studyData: StudyCardContainerInterface;
+  studyData: StudyContainerInterface;
 }
 /**
  * Get filtered study list
@@ -15,9 +12,9 @@ interface UseStudySearchProps {
  */
 const useStudySearch = ({ studyData }: UseStudySearchProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
-  const [filteredStudyData, setFilteredStudyData] = useState<
-    StudyCardInterface[]
-  >([]);
+  const [filteredStudyData, setFilteredStudyData] = useState<StudyInterface[]>(
+    []
+  );
 
   useEffect(() => {
     // Function to filter studyData based on study name

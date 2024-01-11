@@ -26,11 +26,9 @@ import { TextArea } from "@radix-ui/themes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { StudyInterface } from "../types/study";
 
-export default function Apply(StudyValue: StudyInterface) {
+export default function Apply() {
   const [checked, setChecked] = useState(false);
-  const { name, type, startTime, endTime, mentor, lang } = StudyValue;
   const form = useForm<z.infer<typeof applySchema>>({
     resolver: zodResolver(applySchema),
     defaultValues: {
@@ -38,7 +36,6 @@ export default function Apply(StudyValue: StudyInterface) {
       intro: "",
       career: "",
       portfolio: "",
-      terms: false,
     },
   });
 

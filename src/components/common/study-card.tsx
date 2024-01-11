@@ -1,4 +1,4 @@
-import { StudyCardInterface, langColorMap } from "@/app/types/study";
+import { StudyInterface, langColorMap } from "@/app/types/study";
 import { Badge } from "@/components/ui/badge";
 import { Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
@@ -13,7 +13,7 @@ function StudyCard({
   endTime,
   startTime,
   type,
-}: StudyCardInterface) {
+}: StudyInterface) {
   return (
     <Link
       href={{

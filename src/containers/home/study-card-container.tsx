@@ -1,7 +1,7 @@
-import { StudyCardContainerInterface } from "@/app/types/study";
+import { StudyContainerInterface } from "@/app/types/study";
 import StudyCard from "@/components/common/study-card";
 
-function HomeStudyCardContainer({ studyValue }: StudyCardContainerInterface) {
+function HomeStudyCardContainer({ studyValue }: StudyContainerInterface) {
   return (
     <div className="flex flex-col gap-2">
       {studyValue.map((val) => (

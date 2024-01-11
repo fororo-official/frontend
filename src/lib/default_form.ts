@@ -19,7 +19,6 @@ const applySchema = z.object({
     .max(500, { message: "500자 이내로 작성해주세요." }),
   career: z.string().max(50, { message: "50자 이하로 작성해주세요." }),
   portfolio: z.string().optional(),
-  terms: z.boolean(),
 });
 
 const HYU_DEPARTMENTS: {
