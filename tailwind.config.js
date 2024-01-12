@@ -23,6 +23,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        toss: "url('https://static.toss.im/assets/homepage/team/kv-1.jpg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

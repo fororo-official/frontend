@@ -1,11 +1,12 @@
-import { StudyCardContainerInterface } from "@/app/types/study";
+import { StudyContainerInterface } from "@/app/types/study";
 import StudyCard from "@/components/common/study-card";
 
-function HomeStudyCardContainer({ studyValue }: StudyCardContainerInterface) {
+function HomeStudyCardContainer({ studyValue }: StudyContainerInterface) {
   return (
     <div className="flex flex-col gap-2">
-      {studyValue.map((val, idx) => (
+      {studyValue.map((val) => (
         <StudyCard
+          sid={val.sid}
           name={val.name}
           mentor={val.mentor}
           startTime={val.startTime}
@@ -13,7 +14,7 @@ function HomeStudyCardContainer({ studyValue }: StudyCardContainerInterface) {
           attendance={val.attendance}
           lang={val.lang}
           type={val.type}
-          key={idx}
+          key={val.sid}
         />
       ))}
     </div>

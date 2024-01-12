@@ -1,4 +1,5 @@
-interface StudyCardInterface {
+interface StudyInterface {
+  sid: number;
   name: string;
   startTime: string;
   endTime: string;
@@ -8,8 +9,8 @@ interface StudyCardInterface {
   lang: studyLangs[];
 }
 
-interface StudyCardContainerInterface {
-  studyValue: StudyCardInterface[];
+interface StudyContainerInterface {
+  studyValue: StudyInterface[];
   attendance: boolean;
 }
 
@@ -31,4 +32,4 @@ export const langColorMap: Record<studyLangs, string> = {
   [studyLangs.React]: "rose",
 };
 
-export type { StudyCardContainerInterface, StudyCardInterface };
+export type { StudyContainerInterface, StudyInterface };

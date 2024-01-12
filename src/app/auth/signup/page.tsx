@@ -1,6 +1,9 @@
+"use client";
 import RegisterForm from "@/containers/register/register-form";
 import { Flex, Text } from "@radix-ui/themes";
+import { useState } from "react";
 export default function SignUp() {
+  const [step, setStep] = useState<number>(1);
   return (
     <main className="h-full w-full">
       <Flex

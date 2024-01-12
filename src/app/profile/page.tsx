@@ -8,20 +8,20 @@ import { signOut } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ExampleStudyCards from "../home/mockup";
+import ExampleStudyCards from "../../mockup/mockup";
 function ProfilePage() {
   const router = useRouter();
   function handleSignOut() {
     signOut();
     Cookies.remove("ramperIdToken");
     //로그아웃 후 쿠키 새로고침
-    location.href = "/home?status=signOut";
+    location.href = "/studies?status=SignOut";
   }
 
   const StudyCards = ExampleStudyCards;
   return (
     <>
-      <Summary />
+      <Summary name="표준성" info="정보시스템학과 23학번" />
       {/* divider */}
       <div className="w-10/12 max-w-4xl h-px bg-gray-200 my-4"></div>
       <div className="flex flex-col w-10/12 max-w-4xl py-2">

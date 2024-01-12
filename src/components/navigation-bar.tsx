@@ -33,6 +33,7 @@ export function NavigationBar() {
             idToken,
             process.env.NEXT_PUBLIC_RAMPER_API_SECRET!
           );
+
           // 검증 성공 시 로그인 상태를 true로 설정
           setIsLoggedIn(true);
         } catch (error) {
@@ -50,6 +51,8 @@ export function NavigationBar() {
 
   async function handleLogin() {
     const signInResult: SignInResult = await signIn();
+    console.log(signInResult.user?.ramperCredential?.idToken);
+
     try {
       Cookies.set(
         "ramperIdToken",
@@ -57,15 +60,14 @@ export function NavigationBar() {
       );
 
       //로그인 후 쿠키 새로고침
-      console.log();
-
       if (signInResult.method === "cancel") {
-        router.push("/home?status=signInCancel");
+        location.href = "/studies?status=SignInCancel";
       } else {
-        location.href = "/home?status=signInSuccess";
+        location.href = "/studies?status=SignInSuccess";
       }
     } catch (err) {
-      console.error("로그인 실패", err);
+      setIsLoggedIn(false);
+      location.href = `/studies?status=SignInCancel`;
     }
   }
 
@@ -73,6 +75,7 @@ export function NavigationBar() {
     <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
       <Link href="/">
         <div className="flex items-center">
+          <Image src={"/icons/forif.svg"} alt="Logo" width={90} height={90} />
         </div>
       </Link>
       {isCheckingLogin ? (
@@ -81,9 +84,9 @@ export function NavigationBar() {
         </nav>
       ) : (
         <nav className="flex items-center space-x-6 max-md:hidden">
-          <NavTab href="/attendance">전자출결</NavTab>
-          <NavTab href="/board">게시판</NavTab>
-          <NavTab href="/profile">프로필</NavTab>
+          <NavTab href="/studies">스터디 목록</NavTab>
+          {isLoggedIn && <NavTab href="/board">게시판</NavTab>}
+          {isLoggedIn && <NavTab href="/profile">프로필</NavTab>}
           {!isLoggedIn && (
             <Button variant="outline" onClick={handleLogin}>
               로그인
