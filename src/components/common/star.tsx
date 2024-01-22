@@ -1,45 +1,47 @@
 const Star = ({
-  width,
-  height,
   fillColor,
   className,
 }: {
-  width: number;
-  height: number;
   fillColor: string;
   className: any;
 }) => (
   <svg
-    width={width}
-    height={height}
+    width={"30px"}
+    height={"30px"}
     viewBox="0 0 100 100"
-    fill={"#000"}
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
-    <rect y={45} width={100} height={10} fill={fillColor} />
+    <rect x="45" width="10" height="100" fill={fillColor} />
     <rect
-      x={45}
-      y={100}
-      width={100}
-      height={10}
-      transform="rotate(-90 45 100)"
+      y="55"
+      width="10"
+      height="100"
+      transform="rotate(-90 0 55)"
       fill={fillColor}
     />
     <rect
-      x={11}
-      y={81.7107}
-      width={100}
-      height={10}
-      transform="rotate(-45 11 81.7107)"
+      x="11"
+      y="18.0711"
+      width="10"
+      height="100"
+      transform="rotate(-45 11 18.0711)"
       fill={fillColor}
     />
     <rect
-      x={18.0713}
-      y={11}
-      width={100}
-      height={10}
-      transform="rotate(45 18.0713 11)"
+      x="18.071"
+      y="88.7817"
+      width="10"
+      height="100"
+      transform="rotate(-135 18.071 88.7817)"
+      fill={fillColor}
+    />
+    <rect
+      y="55"
+      width="10"
+      height="100"
+      transform="rotate(-90 0 55)"
       fill={fillColor}
     />
   </svg>

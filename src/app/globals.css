@@ -4,6 +4,7 @@
 
 :root {
   height: 100%;
+  scroll-behavior: smooth;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -64,5 +65,17 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+  }
+}
+
+.star-group {
+  display: none;
+  position: relative;
+  flex-basis: 20%;
+}
+
+@media (min-width: 768px) {
+  .star-group {
+    display: block;
   }
 }

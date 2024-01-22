@@ -1,26 +1,198 @@
 "use client";
+import Star from "@/components/common/star";
+import { Button } from "@/components/ui/button";
+import GetScrollY from "@/hooks/getScrollY";
+import handleObserver from "@/hooks/intersectionObserver";
+import { useEffect, useState } from "react";
+import CountUp from "react-countup";
 import { TypeAnimation } from "react-type-animation";
+import { abel } from "./fonts/fonts";
 export default function HomePage() {
+  const scrollY = GetScrollY();
+  const [starRGB, setStarRGB] = useState(0);
+  const starColor = `rgb(${255 - starRGB}, ${255 - starRGB}, ${255 - starRGB})`;
+  const backgroundColor = `rgb(${starRGB}, ${starRGB}, ${starRGB})`;
+  const [countUpVisible, setCountUpVisible] = useState({
+    section1: false,
+    section2: false,
+    section3: false,
+  });
+  const introVisible = handleObserver("#intro");
+  const aboutVisible = handleObserver("#about");
+
+  useEffect(() => {
+    function useStarRGB() {
+      if (starRGB > 255) {
+        setStarRGB(255);
+      } else {
+        setStarRGB(scrollY / 2);
+      }
+    }
+    function handleVisible() {
+      if (aboutVisible !== undefined) {
+        if (aboutVisible > 0.3) {
+          setCountUpVisible((prevState) => ({
+            ...prevState,
+            section1: true,
+          }));
+        } else {
+          setCountUpVisible((prevState) => ({
+            ...prevState,
+            section1: false,
+          }));
+        }
+      }
+    }
+
+    useStarRGB();
+    handleVisible();
+  }, [scrollY]);
+
   return (
-    <div className="pt-16 mb-8 min-h-full h-fit">
-      <div className="p-6 font-bold">
-        <TypeAnimation
-          preRenderFirstString={true}
-          sequence={[
-            1000,
-            "PROGRAMMING\nFOR\nEVERYONE",
-            1000,
-            "PROGRAMMING\nTO\nEVERYONE",
-            1000,
-            "PROGRAMMING\nIN\nEVERYONE",
-            500,
-          ]}
-          speed={20}
-          className="text-8xl font-bold whitespace-pre-line"
-          repeat={Infinity}
-        />
-      </div>
-    </div>
+    <>
+      <main
+        className={`pt-16 mb-8 min-h-full h-fit transition-colors duration-500`}
+        style={{ backgroundColor }}
+      >
+        <section className="h-screen w-full flex">
+          <div className="star-group">
+            <Star
+              fillColor={starColor}
+              className={"absolute top-48 right-12"}
+            />
+            <Star
+              fillColor={starColor}
+              className={"absolute top-80 right-20"}
+            />
+            <Star
+              fillColor={starColor}
+              className={"absolute bottom-32 right-0"}
+            />
+          </div>
+          <div className="flex flex-col gap-12 justify-center items-center h-[calc(100%-60px)] md:basis-4/6 basis-full">
+            <div className="md:text-6xl text-3xl font-bold whitespace-pre-line tracking-wide text-center flex flex-col gap-10 text-gray-50">
+              <div className="flex flex-row gap-2">
+                <TypeAnimation
+                  wrapper="span"
+                  preRenderFirstString={true}
+                  sequence={[
+                    2000,
+                    "개발자",
+                    2000,
+                    "팀 프로젝트",
+                    2000,
+                    "새로운 경험",
+                    2000,
+                    "한양대생",
+                    3000,
+                  ]}
+                  speed={8}
+                  repeat={Infinity}
+                  className="text-forif"
+                />
+                <span>위한</span>
+              </div>
+              <h1 className={abel.className} style={{ fontWeight: "bold" }}>
+                F O R I F
+              </h1>
+            </div>
+            <Button variant={"sensuous"} size={"lg"}>
+              APPLY
+            </Button>
+          </div>
+          <div className="star-group">
+            <Star fillColor={starColor} className={"absolute top-40 left-20"} />
+            <Star
+              fillColor={starColor}
+              className={"absolute bottom-80 left-0"}
+            />
+            <Star
+              fillColor={starColor}
+              className={"absolute bottom-40 left-10"}
+            />
+          </div>
+        </section>
+
+        <section
+          id="intro"
+          className="md:mt-32 mt-12 flex flex-col items-center h-screen"
+        >
+          <div className="flex flex-col justify-start gap-32 md:w-full w-5/6 max-w-4xl">
+            <div className="flex flex-col ">
+              <div className="star-group">
+                <Star
+                  fillColor={starColor}
+                  className={"absolute top-48 left-36"}
+                />
+                <Star
+                  fillColor={starColor}
+                  className={"absolute top-80 left-32"}
+                />
+                <Star
+                  fillColor={starColor}
+                  className={"absolute bottom-20 left-10"}
+                />
+              </div>
+              <h1
+                className="md:text-5xl text-3xl font-bold text-black transition-all text-center md:basis-3/5 basis-full flex items-center justify-center"
+                style={{ opacity: introVisible }}
+              >
+                FORIF는 2015년에 설립되었습니다.
+              </h1>
+              <div className="star-group">
+                <Star
+                  fillColor={starColor}
+                  className={"absolute top-40 left-20"}
+                />
+                <Star
+                  fillColor={starColor}
+                  className={"absolute top-0 right-0"}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="about"
+          className="md:mt-32 mt-12 flex flex-col items-center h-screen"
+        >
+          <div className="flex flex-col justify-start gap-32 md:w-full w-5/6 max-w-4xl">
+            <div className="flex flex-col items-start">
+              <h1 className="md:text-7xl text-3xl font-bold text-black mb-4">
+                규모
+              </h1>
+
+              <div className="flex flex-row gap-8 mb-2">
+                <div className="flex flex-col justify-center items-start relative">
+                  <h2 className="md:text-9xl text-5xl font-bold text-blackx">
+                    {countUpVisible.section1 ? (
+                      <CountUp start={100} end={400} duration={5} />
+                    ) : (
+                      400
+                    )}
+                  </h2>
+                  <p className="md:text-5xl text-3xl font-bold text-blackx absolute -top-4 -right-4">
+                    +
+                  </p>
+                  <p className="md:text-xl text-lg text-blackx">지원자</p>
+                </div>
+                <div className="flex flex-col justify-center items-start">
+                  <h2 className="md:text-9xl text-5xl font-bold text-blackx">
+                    {countUpVisible.section1 ? (
+                      <CountUp start={1} end={15} />
+                    ) : (
+                      15
+                    )}
+                  </h2>
+                  <p className="md:text-xl text-lg text-blackx">스터디</p>
+                </div>
+              </div>
+              <p className="text-sm text-blackx">* 1년 기준</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
   // //초기 로그인 시 다음 단계로 넘어가기 위한 local state
   // const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);

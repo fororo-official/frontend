@@ -30,6 +30,7 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        forif: "#0059E2",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {

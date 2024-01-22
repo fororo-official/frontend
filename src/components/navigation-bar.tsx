@@ -1,12 +1,14 @@
 "use client";
+import { abel } from "@/app/fonts/fonts";
+import GetScrollY from "@/hooks/getScrollY";
 import initWallet from "@/hooks/initWallet";
+import ToastEmitter from "@/hooks/toastEmitter";
 import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
+import { cn } from "@/lib/utils";
 import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { Button } from "./ui/button";
 import {
@@ -17,9 +19,9 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 export function NavigationBar() {
-  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isCheckingLogin, setIsCheckingLogin] = useState<boolean>(true);
+  const scrollY = GetScrollY();
 
   useEffect(() => {
     initWallet();
@@ -61,34 +63,45 @@ export function NavigationBar() {
 
       //로그인 후 쿠키 새로고침
       if (signInResult.method === "cancel") {
-        location.href = "/studies?status=SignInCancel";
+        ToastEmitter({ type: "error", text: "로그인을 중단했어요." });
       } else {
         location.href = "/studies?status=SignInSuccess";
       }
     } catch (err) {
+      ToastEmitter({ type: "error", text: "로그인을 중단했어요." });
       setIsLoggedIn(false);
-      location.href = `/studies?status=SignInCancel`;
     }
   }
 
   return (
-    <header className="flex items-center justify-between px-6 py-2 fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur border-b border-gray-200 z-10">
-      <Link href="/">
+    <header
+      className={`flex items-center justify-between px-6 h-[60px] fixed left-0 right-0 top-0 bg-transparent bg-opacity-75 backdrop-blur z-10 ${
+        scrollY !== 0 && "border-b border-gray-200"
+      }`}
+    >
+      <a href="/">
         <div className="flex items-center">
-          <Image src={"/icons/forif.svg"} alt="Logo" width={90} height={90} />
+          {/* <Image src={"/icons/forif.svg"} alt="Logo" width={90} height={90} /> */}
+          <h1
+            className={cn("text-xl text-forif", abel.className)}
+            style={{ fontWeight: "bold" }}
+          >
+            F O R I F
+          </h1>
         </div>
-      </Link>
+      </a>
       {isCheckingLogin ? (
         <nav className="flex items-center space-x-6 max-md:hidden">
           <NavTab href="/">로딩 중..</NavTab>
         </nav>
       ) : (
         <nav className="flex items-center space-x-6 max-md:hidden">
-          <NavTab href="/studies">스터디 목록</NavTab>
-          {isLoggedIn && <NavTab href="/board">게시판</NavTab>}
+          {!isLoggedIn && <NavTab href="#intro">About us</NavTab>}
+          {!isLoggedIn && <NavTab href="#howitworks">How it works</NavTab>}
+          {!isLoggedIn && <NavTab href="#projects">Projects</NavTab>}
           {isLoggedIn && <NavTab href="/profile">프로필</NavTab>}
           {!isLoggedIn && (
-            <Button variant="outline" onClick={handleLogin}>
+            <Button variant="default" onClick={handleLogin}>
               로그인
             </Button>
           )}
@@ -99,7 +112,7 @@ export function NavigationBar() {
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
-              <FiMenu size={24} />
+              <FiMenu size={24} color={"white"} />
             </Button>
           </SheetTrigger>
           <SheetContent className="w-64">
@@ -114,7 +127,7 @@ export function NavigationBar() {
                     <NavTab href="/attendance">전자출결</NavTab>
                     <NavTab href="/board">게시판</NavTab>
                     <NavTab href="/profile">프로필</NavTab>
-                    {!isLoggedIn && <Button variant="outline">로그인</Button>}
+                    {!isLoggedIn && <NavTab href="/login">로그인</NavTab>}
                   </div>
                 )}
               </SheetClose>
@@ -136,7 +149,7 @@ function NavTab({
   return (
     <Link
       href={href}
-      className="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-50"
+      className="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-200"
     >
       {children}
     </Link>

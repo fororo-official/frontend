@@ -36,6 +36,7 @@ function handleQueryAndToast() {
         break;
       case "SignInCancel":
         ToastEmitter({ type: "error", text: "로그인을 중단했어요." });
+        router.push("/");
         break;
       case null:
         router.push("/studies");

@@ -15,7 +15,7 @@ function ProfilePage() {
     signOut();
     Cookies.remove("ramperIdToken");
     //로그아웃 후 쿠키 새로고침
-    location.href = "/studies?status=SignOut";
+    location.href = "/";
   }
 
   const StudyCards = ExampleStudyCards;
