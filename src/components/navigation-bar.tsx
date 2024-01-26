@@ -1,12 +1,11 @@
 "use client";
-import { abel } from "@/app/fonts/fonts";
 import GetScrollY from "@/hooks/getScrollY";
 import initWallet from "@/hooks/initWallet";
 import ToastEmitter from "@/hooks/toastEmitter";
 import verifyRamperIdToken from "@/hooks/verifyRamperIdToken";
-import { cn } from "@/lib/utils";
 import { SignInResult, signIn } from "@ramper/ethereum";
 import Cookies from "js-cookie";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
@@ -79,24 +78,18 @@ export function NavigationBar() {
         scrollY !== 0 && "border-b border-gray-200"
       }`}
     >
-      <a href="/">
+      <Link href="/">
         <div className="flex items-center">
-          {/* <Image src={"/icons/forif.svg"} alt="Logo" width={90} height={90} /> */}
-          <h1
-            className={cn("text-xl text-forif", abel.className)}
-            style={{ fontWeight: "bold" }}
-          >
-            F O R I F
-          </h1>
+          <Image src={"/icons/forif.svg"} alt="Logo" width={88} height={36} />
         </div>
-      </a>
+      </Link>
       {isCheckingLogin ? (
         <nav className="flex items-center space-x-6 max-md:hidden">
           <NavTab href="/">로딩 중..</NavTab>
         </nav>
       ) : (
         <nav className="flex items-center space-x-6 max-md:hidden">
-          {!isLoggedIn && <NavTab href="#intro">About us</NavTab>}
+          {!isLoggedIn && <NavTab href="#about_us">About us</NavTab>}
           {!isLoggedIn && <NavTab href="#howitworks">How it works</NavTab>}
           {!isLoggedIn && <NavTab href="#projects">Projects</NavTab>}
           {isLoggedIn && <NavTab href="/profile">프로필</NavTab>}
@@ -149,7 +142,7 @@ function NavTab({
   return (
     <Link
       href={href}
-      className="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-200"
+      className="px-3 py-2 text-sm font-medium text-gray-500 rounded-md hover:text-gray-900 hover:bg-gray-100"
     >
       {children}
     </Link>

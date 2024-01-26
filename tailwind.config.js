@@ -23,8 +23,11 @@ module.exports = {
       },
     },
     extend: {
-      backgroundImage: {
-        toss: "url('https://static.toss.im/assets/homepage/team/kv-1.jpg')",
+      transitionProperty: {
+        graph: "width opacity",
+      },
+      transitionDuration: {
+        graph: "1000ms",
       },
       colors: {
         border: "hsl(var(--border))",
