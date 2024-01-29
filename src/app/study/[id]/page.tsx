@@ -53,16 +53,7 @@ function Page({ params }: { params: { id: string } }) {
             매주 화요일 18:00 - 20:00
           </Text>
         </div>
-        <div className="">
-          <Text size="6" weight="bold" className="text-gray-900 mb-2">
-            사용 언어
-          </Text>
-          <ul>
-            <li>자바스크립트</li>
-            <li>리액트</li>
-            <li>타입스크립트</li>
-          </ul>
-        </div>
+
         <Button>
           <Link href={"/apply"} className="w-full">
             지원하기
