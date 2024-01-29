@@ -94,9 +94,18 @@ const galleryImages: GalleryImageType[] = [
   {
     id: 4,
     imageURI: "graduation_poster",
-    name: "졸업 현수막",
+    name: "졸업 현수막 - 황성우",
     description:
-      "포리프 운영진(멘토) 활동 2학기 이상 시 졸업 현수막을 만들어드립니다! 황성우 선배님 사용 허락 감사드립니다",
+      "포리프 운영진(멘토) 활동 2학기 이상 시 졸업 현수막을 만들어드립니다!",
+    isHovered: false,
+    isClick: false,
+  },
+  {
+    id: 5,
+    imageURI: "graduation_poster_2",
+    name: "졸업 현수막 - 민경환",
+    description:
+      "포리프 운영진(멘토) 활동 2학기 이상 시 졸업 현수막을 만들어드립니다!",
     isHovered: false,
     isClick: false,
   },

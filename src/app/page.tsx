@@ -139,43 +139,62 @@ export default function HomePage() {
         </section>
         <section
           id="scale"
-          className="md:mt-52 mt-12 flex flex-col items-center h-screen"
+          className="md:mt-52 mt-12 flex flex-col gap-32 items-center h-fit"
         >
-          <div className="flex flex-col justify-start gap-32 w-10/12 max-w-8xl">
+          <div className="flex flex-col justify-start w-10/12 max-w-8xl">
             <div className="flex flex-col items-start">
               <h1 className="md:text-7xl text-3xl font-bold text-black mb-4">
                 규모
               </h1>
 
-              <div className="flex flex-row gap-8 mb-2">
+              <div className="flex flex-row gap-16 mb-2">
                 <div className="flex flex-col justify-center items-start relative">
                   <h2 className="md:text-9xl text-5xl font-bold text-black">
                     {countUpVisible.section1 ? (
-                      <CountUp start={100} end={400} duration={4} />
+                      <CountUp start={600} end={1200} duration={4} />
                     ) : (
-                      400
+                      1200
                     )}
                   </h2>
                   <p className="md:text-5xl text-3xl font-bold text-black absolute -top-4 -right-4">
                     +
                   </p>
-                  <p className="md:text-xl text-lg text-black">지원자</p>
+                  <p className="md:text-xl text-lg text-black">누적 부원 수</p>
                 </div>
                 <div className="flex flex-col justify-center items-start relative">
                   <h2 className="md:text-9xl text-5xl font-bold text-black">
                     {countUpVisible.section1 ? (
-                      <CountUp start={1} end={15} />
+                      <CountUp start={1} end={64} duration={4} />
                     ) : (
-                      15
+                      64
                     )}
                   </h2>
-                  <p className="md:text-5xl text-3xl font-bold text-black absolute -top-4 -right-4">
-                    +
-                  </p>
-                  <p className="md:text-xl text-lg text-black">스터디</p>
+                  <p className="md:text-xl text-lg text-black">총 스터디 수</p>
                 </div>
               </div>
-              <p className="text-sm text-black">* 1년 기준</p>
+              <p className="text-sm text-black">* 2015년 기준</p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-end gap-32 w-10/12 max-w-8xl">
+            <div className="flex flex-col items-end">
+              <h1 className="md:text-7xl text-3xl font-bold text-black mb-4">
+                다양한 활동
+              </h1>
+
+              <div className="flex flex-row gap-8 mb-2">
+                <h2 className="md:text-3xl text-2xl font-bold text-black">
+                  홈커밍데이
+                </h2>
+                <h2 className="md:text-3xl text-2xl font-bold text-black">
+                  선배와의 만남
+                </h2>
+                <h2 className="md:text-3xl text-2xl font-bold text-black">
+                  MT
+                </h2>
+                <h2 className="md:text-3xl text-2xl font-bold text-black">
+                  HPEC
+                </h2>
+              </div>
             </div>
           </div>
         </section>

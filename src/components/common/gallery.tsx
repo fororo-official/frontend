@@ -23,15 +23,19 @@ export default function Gallery({ images }: { images: GalleryImageType[] }) {
   });
 
   const handleImageHover = (idx: number) => {
-    const newHoverStates = [...imageHoverStates];
-    newHoverStates[idx] = true;
-    setImageHoverStates(newHoverStates);
+    setImageHoverStates((prevState) => {
+      const newHoverStates = [...prevState];
+      newHoverStates[idx] = true;
+      return newHoverStates;
+    });
   };
 
   const handleImageUnhover = (idx: number) => {
-    const newHoverStates = [...imageHoverStates];
-    newHoverStates[idx] = false;
-    setImageHoverStates(newHoverStates);
+    setImageHoverStates((prevState) => {
+      const newHoverStates = [...prevState];
+      newHoverStates[idx] = false;
+      return newHoverStates;
+    });
   };
 
   const handleImageClick = (idx: number) => {
@@ -71,6 +75,8 @@ export default function Gallery({ images }: { images: GalleryImageType[] }) {
               width={1000}
               height={1000}
               quality={100}
+              placeholder="blur"
+              blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII="
               priority
             />
             <figcaption>
