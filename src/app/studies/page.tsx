@@ -5,7 +5,7 @@ import StudyCardContainer from "@/containers/home/study-card-container";
 import handleQueryAndToast from "@/hooks/handleQueryAndToast";
 import useStudySearch from "@/hooks/search-study";
 import Image from "next/image";
-import ExampleStudyCards from "../../mockup/mockup";
+import { ExampleStudyCards } from "../../mockup/mockup";
 const StudiesPage = () => {
   handleQueryAndToast();
 

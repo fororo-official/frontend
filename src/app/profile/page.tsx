@@ -8,7 +8,7 @@ import { signOut } from "@ramper/ethereum";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ExampleStudyCards from "../../mockup/mockup";
+import { ExampleStudyCards } from "../../mockup/mockup";
 function ProfilePage() {
   const router = useRouter();
   function handleSignOut() {
