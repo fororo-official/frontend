@@ -4,20 +4,10 @@ import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
 import StudyCardContainer from "@/containers/profile/study-card-container";
 import { Text } from "@radix-ui/themes";
-import { signOut } from "@ramper/ethereum";
-import Cookies from "js-cookie";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ExampleStudyCards } from "../../mockup/mockup";
 function ProfilePage() {
-  const router = useRouter();
-  function handleSignOut() {
-    signOut();
-    Cookies.remove("ramperIdToken");
-    //로그아웃 후 쿠키 새로고침
-    location.href = "/";
-  }
-
   const StudyCards = ExampleStudyCards;
   return (
     <>
@@ -55,7 +45,7 @@ function ProfilePage() {
           </Link>
           <Button
             variant={"destructive"}
-            onClick={handleSignOut}
+            onClick={() => signOut()}
             className="w-32"
           >
             로그아웃

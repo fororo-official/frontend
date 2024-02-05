@@ -1,6 +1,7 @@
 "use client";
-import Gallery from "@/components/common/gallery";
+import Gallery from "@/components/common/gallery/gallery";
 import Star from "@/components/common/star";
+import Milestone from "@/components/pages/home/milestone";
 import { Button } from "@/components/ui/button";
 import handleObserver from "@/hooks/intersectionObserver";
 import { galleryImages, milestone } from "@/mockup/mockup";
@@ -45,9 +46,18 @@ export default function HomePage() {
       >
         <section className="h-screen w-full flex">
           <div className="star-group">
-            <Star fillColor={"#000"} className={"absolute top-48 right-12"} />
-            <Star fillColor={"#000"} className={"absolute top-80 right-20"} />
-            <Star fillColor={"#000"} className={"absolute bottom-32 right-0"} />
+            <Star
+              fillColor={"#000"}
+              className={"absolute top-48 right-12 animate-pulse"}
+            />
+            <Star
+              fillColor={"#000"}
+              className={"absolute top-80 right-20 animate-pulse delay-200"}
+            />
+            <Star
+              fillColor={"#000"}
+              className={"absolute bottom-32 right-0 animate-pulse delay-300"}
+            />
           </div>
           <div className="flex flex-col gap-12 justify-center items-center h-[calc(100%-60px)] md:basis-4/6 basis-full">
             <div className="md:text-6xl text-3xl font-bold whitespace-pre-line tracking-wide text-center flex flex-col gap-10 text-gray-900">
@@ -81,9 +91,18 @@ export default function HomePage() {
             </Button>
           </div>
           <div className="star-group">
-            <Star fillColor={"#000"} className={"absolute top-40 left-20"} />
-            <Star fillColor={"#000"} className={"absolute bottom-80 left-0"} />
-            <Star fillColor={"#000"} className={"absolute bottom-40 left-10"} />
+            <Star
+              fillColor={"#000"}
+              className={"absolute top-40 left-20 animate-pulse delay-500"}
+            />
+            <Star
+              fillColor={"#000"}
+              className={"absolute bottom-80 left-0 animate-pulse"}
+            />
+            <Star
+              fillColor={"#000"}
+              className={"absolute bottom-40 left-10 animate-pulse delay-75"}
+            />
           </div>
         </section>
         <section className="md:mt-52 mt-12 flex flex-col items-center min-h-fit w-full">
@@ -104,35 +123,8 @@ export default function HomePage() {
           className="mt-12 flex flex-col items-center min-h-fit w-full relative"
         >
           <div className="flex md:flex-row flex-col gap-10 justify-between w-10/12 max-w-8xl h-[calc(100%-60px)]">
-            <div className="flex flex-col gap-4 w-full">
-              <ul className="list_milestones">
-                {milestone.data.map((val) => (
-                  <li key={val.year}>
-                    <div className="wrap_cont">
-                      <strong>{val.year}</strong>
-                      <div className="inner_cont">
-                        {val.events.map((event) => (
-                          <div
-                            key={`${val.year}-${event.month}`}
-                            className="flex justify-start"
-                          >
-                            <em>{event.month}월</em>
-                            <div className="ml-9">
-                              <ul className="list_link">
-                                {event.details.map((detail, idx) => (
-                                  <li key={`${val.year}-${event.month}-${idx}`}>
-                                    {detail.event}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            <div className="w-full">
+              <Milestone milestoneData={milestone} />
             </div>
             <Gallery images={galleryImages} />
           </div>
@@ -194,6 +186,21 @@ export default function HomePage() {
                 <h2 className="md:text-3xl text-2xl font-bold text-black">
                   HPEC
                 </h2>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          id="howitworks"
+          className="md:mt-52 mt-12 flex flex-col gap-32 items-center h-fit"
+        >
+          <div className="flex flex-col justify-start w-10/12 max-w-8xl">
+            <div className="flex flex-col items-start">
+              <h1 className="md:text-7xl text-3xl font-bold text-black mb-4">
+                진행과정
+              </h1>
+              <div>
+                <h2></h2>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import { Milestone } from "@/app/types/milestone";
-import { GalleryImageType } from "@/components/common/gallery";
+import { MilestoneType } from "@/app/types/milestone";
+import { GalleryImageType } from "@/components/common/gallery/gallery";
 import {
   StudyContainerInterface,
   StudyInterface,
@@ -111,7 +111,7 @@ const galleryImages: GalleryImageType[] = [
   },
 ];
 
-const milestone: Milestone = {
+const milestone: MilestoneType = {
   data: [
     {
       year: 2024,
@@ -225,4 +225,118 @@ const milestone: Milestone = {
   ],
 };
 
-export { ExampleStudyCards, galleryImages, milestone };
+const howitworks: MilestoneType = {
+  data: [
+    {
+      year: 2024,
+      events: [
+        {
+          month: "01",
+          details: [
+            {
+              event: "FORIF 웹사이트 오픈",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      year: 2023,
+      events: [
+        {
+          month: "12",
+          details: [
+            {
+              event: "제 8회 해커톤",
+            },
+          ],
+        },
+        {
+          month: "11",
+          details: [
+            {
+              event: "제 1회 홈커밍데이",
+            },
+          ],
+        },
+        {
+          month: "09",
+          details: [
+            {
+              event: "2023 HPEC 개최",
+            },
+            {
+              event: "(Hanyang Programming Evaluation Contest)",
+            },
+          ],
+        },
+        {
+          month: "08",
+          details: [
+            {
+              event: "OOPARTS와 연합 스터디",
+            },
+          ],
+        },
+
+        {
+          month: "05",
+          details: [
+            {
+              event: "FORIF MT",
+            },
+          ],
+        },
+        {
+          month: "04",
+          details: [
+            {
+              event: "노션 특강",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      year: 2022,
+      events: [
+        {
+          month: "12",
+          details: [
+            {
+              event: "동아리방 리모델링",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      year: 2021,
+      events: [
+        {
+          month: "06",
+          details: [
+            {
+              event: "FORIF 중앙동아리 승격",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      year: 2015,
+      events: [
+        {
+          month: "03",
+          details: [
+            {
+              event: "FORIF 창립일",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export { ExampleStudyCards, galleryImages, howitworks, milestone };
