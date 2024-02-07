@@ -11,7 +11,7 @@ export default function SignUp() {
         gap="2"
         className="pt-16 px-6 bg-gray-100 h-full flex items-center"
       >
-        <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full">
+        <div className="bg-white p-0 w-9/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full">
           <div className="bg-slate-950 flex flex-col align-middle justify-start px-6 py-5 border-b-2 border-gray-200">
             <Text size="6" weight="bold" className="text-gray-50">
               회원가입

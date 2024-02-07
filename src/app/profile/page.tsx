@@ -4,14 +4,19 @@ import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
 import StudyCardContainer from "@/containers/profile/study-card-container";
 import { Text } from "@radix-ui/themes";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { ExampleStudyCards } from "../../mockup/mockup";
 function ProfilePage() {
   const StudyCards = ExampleStudyCards;
+  const { data: session } = useSession();
   return (
     <>
-      <Summary name="표준성" info="정보시스템학과 23학번" />
+      <Summary
+        imageUrl={session?.user.image!}
+        name={session?.user.name!}
+        info="정보시스템학과 23학번"
+      />
       {/* divider */}
       <div className="w-10/12 max-w-4xl h-px bg-gray-200 my-4"></div>
       <div className="flex flex-col w-10/12 max-w-4xl py-2">

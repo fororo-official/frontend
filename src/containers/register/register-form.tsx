@@ -3,19 +3,25 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import getCloudinaryURI from "@/hooks/getCloudinaryURI";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import ToastEmitter from "@/hooks/toastEmitter";
+import { HYU_DEPARTMENTS } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import z from "zod";
@@ -24,37 +30,34 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "이름은 2글자 이상이어야 합니다." })
     .max(20, { message: "이름은 20글자 이하여야 합니다." }),
-  studentId: z.string().length(10, { message: "학번은 10글자여야 합니다." }),
-  profileImage: z.string().optional(),
+  userId: z.string().transform((val, ctx) => {
+    if (val.length !== 10) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "학번은 10자리여야 합니다.",
+      });
+    }
+    return val;
+  }),
+  department: z.string(),
 });
 
 export default function RegisterForm() {
-  const router = useRouter();
-  const [profileImg, setProfileImg] = useState<File | null>(null);
-
-  //이미지 선택 함수
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    setProfileImg(selectedFile || null);
-  };
+  const { data: session } = useSession();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      studentId: "",
-      profileImage: undefined,
+      userId: "",
+      department: "",
     },
   });
 
   //submit 버튼 클릭시
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      //유저의 학번으로 이름을 가진 프로필 이미지를 cloudinary에 업로드한다.
-      //예시 : 2023063845.png
-      const cloudinaryURI = await getCloudinaryURI(profileImg!, data.studentId);
-      Cookies.set("userId", data.studentId);
-      location.href = "/home?status=signUpSuccess";
+      console.log(data);
     } catch (err) {
       console.log(err);
       ToastEmitter({ type: "success", text: "회원가입 실패!" });
@@ -78,7 +81,7 @@ export default function RegisterForm() {
           )}
         />
         <FormField
-          name="studentId"
+          name="userId"
           control={form.control}
           render={({ field }) => (
             <FormItem>
@@ -91,19 +94,30 @@ export default function RegisterForm() {
           )}
         />
         <FormField
-          name="profileImage"
+          name="department"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>프로필 이미지</FormLabel>
-              <FormDescription>jpg, png 이미지만 가능합니다</FormDescription>
-              <FormControl>
-                <Input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg"
-                  onChange={onChange}
-                />
-              </FormControl>
+              <FormLabel>학과</FormLabel>
+              <Select>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="학과를 선택해주세요." />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.keys(HYU_DEPARTMENTS).map((department) => (
+                    <SelectGroup key={department}>
+                      <SelectLabel>{department}</SelectLabel>
+                      {(HYU_DEPARTMENTS[department] as string[]).map((d) => (
+                        <SelectItem key={d} value={d}>
+                          {d}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

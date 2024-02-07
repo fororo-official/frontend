@@ -1,19 +1,18 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { GoogleLoginButton } from "@/components/navigation-bar";
 import { Flex, Text } from "@radix-ui/themes";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Page() {
   return (
-    <main className="h-full w-full">
+    <main className="min-h-full h-fit">
       <Flex
         direction="column"
         gap="2"
-        className="pt-16 px-6 bg-gray-100 h-full flex items-center"
+        className="px-6 bg-gray-100 h-screen w-full flex items-center justify-center"
       >
-        <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full relative">
+        <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full relative flex flex-col">
           <div className="bg-slate-950 flex flex-col align-middle justify-start px-6 py-5 border-b-2 border-gray-200">
             <Text size="6" weight="bold" className="text-gray-50 mb-2">
               로그인/회원가입
@@ -45,17 +44,7 @@ export default function Page() {
             </div>
           </div>
           <div className="flex flex-row p-6 w-full justify-between items-center">
-            <Button variant={"outline"} onClick={() => signIn("google")}>
-              <div className="flex flex-row items-center gap-5">
-                <Image
-                  src={"/icons/google.png"}
-                  width={20}
-                  height={20}
-                  alt="Google Logo"
-                />
-                <h1>학교 계정으로 로그인</h1>
-              </div>
-            </Button>
+            <GoogleLoginButton />
             <div className="flex-row gap-3 justify-start items-center md:flex hidden">
               <Link
                 href={"https://www.instagram.com/forif_hyu/"}

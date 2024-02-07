@@ -1,10 +1,11 @@
 "use client";
 import Gallery from "@/components/common/gallery/gallery";
-import Star from "@/components/common/star";
 import Milestone from "@/components/pages/home/milestone";
 import { Button } from "@/components/ui/button";
 import handleObserver from "@/hooks/intersectionObserver";
+import { parseJwt } from "@/hooks/parseJWT";
 import { galleryImages, milestone } from "@/mockup/mockup";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { TypeAnimation } from "react-type-animation";
@@ -19,6 +20,8 @@ export default function HomePage() {
 
   const introVisible = handleObserver("#intro");
   const scaleVisible = handleObserver("#scale");
+  const { data: session } = useSession();
+  const userToken = session?.user.token;
 
   useEffect(() => {
     function handleVisible() {
@@ -41,25 +44,9 @@ export default function HomePage() {
 
   return (
     <>
-      <main
-        className={`pt-16 mb-8 min-h-full h-fit transition-colors duration-500`}
-      >
+      <main className={`pt-16 mb-8 min-h-full h-fit`}>
         <section className="h-screen w-full flex">
-          <div className="star-group">
-            <Star
-              fillColor={"#000"}
-              className={"absolute top-48 right-12 animate-pulse"}
-            />
-            <Star
-              fillColor={"#000"}
-              className={"absolute top-80 right-20 animate-pulse delay-200"}
-            />
-            <Star
-              fillColor={"#000"}
-              className={"absolute bottom-32 right-0 animate-pulse delay-300"}
-            />
-          </div>
-          <div className="flex flex-col gap-12 justify-center items-center h-[calc(100%-60px)] md:basis-4/6 basis-full">
+          <div className="flex flex-col gap-12 justify-center items-center h-[calc(100%-60px)] w-full">
             <div className="md:text-6xl text-3xl font-bold whitespace-pre-line tracking-wide text-center flex flex-col gap-10 text-gray-900">
               <div className="flex flex-row gap-2">
                 <TypeAnimation
@@ -86,23 +73,14 @@ export default function HomePage() {
                 F O R I F
               </h1>
             </div>
-            <Button variant={"sensuous"} size={"lg"}>
-              APPLY
+            <Button
+              variant={"sensuous"}
+              size={"lg"}
+              onClick={() => parseJwt(userToken?.id_token)}
+            >
+              APPLY NOW
+              {/* <Link href={"/studies"}>APPLY NOW</Link> */}
             </Button>
-          </div>
-          <div className="star-group">
-            <Star
-              fillColor={"#000"}
-              className={"absolute top-40 left-20 animate-pulse delay-500"}
-            />
-            <Star
-              fillColor={"#000"}
-              className={"absolute bottom-80 left-0 animate-pulse"}
-            />
-            <Star
-              fillColor={"#000"}
-              className={"absolute bottom-40 left-10 animate-pulse delay-75"}
-            />
           </div>
         </section>
         <section className="md:mt-52 mt-12 flex flex-col items-center min-h-fit w-full">
@@ -110,7 +88,6 @@ export default function HomePage() {
             <h1
               id="intro"
               className="md:text-4xl text-3xl font-bold text-black transition-all flex items-center justify-start"
-              style={{ opacity: introVisible }}
             >
               변화를 열망하는 사람들이 모여,
               <br />

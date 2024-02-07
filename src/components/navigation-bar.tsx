@@ -3,7 +3,8 @@ import GetScrollY from "@/hooks/getScrollY";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
 import { Button } from "./ui/button";
 import {
@@ -16,11 +17,11 @@ import {
 export function NavigationBar() {
   const scrollY = GetScrollY();
   const { data: session } = useSession();
-  console.log(session);
+  const pathname = usePathname();
 
   return (
     <header
-      className={`flex items-center justify-between px-6 h-[60px] fixed left-0 right-0 top-0 bg-transparent bg-opacity-75 backdrop-blur z-10 ${
+      className={`flex items-center justify-between px-6 h-[60px] fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur z-10 ${
         scrollY !== 0 && "border-b border-gray-200"
       }`}
     >
@@ -35,12 +36,10 @@ export function NavigationBar() {
         </nav>
       ) : (
         <nav className="flex items-center space-x-6 max-md:hidden">
-          <NavTab href="#about_us">About us</NavTab>
-          <NavTab href="#howitworks">How it works</NavTab>
-          <NavTab href="#projects">Projects</NavTab>
-          <Button variant="default" onClick={() => signIn("google")}>
-            로그인
-          </Button>
+          {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
+          {pathname === "/" && <NavTab href="#howitworks">How it works</NavTab>}
+          {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
+          {pathname !== "/auth/signin" && <GoogleLoginButton />}
         </nav>
       )}
 
@@ -49,7 +48,7 @@ export function NavigationBar() {
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
-              <FiMenu size={24} color={"white"} />
+              <FiMenu size={24} />
             </Button>
           </SheetTrigger>
           <SheetContent className="w-64">
@@ -82,5 +81,29 @@ function NavTab({
     >
       {children}
     </Link>
+  );
+}
+
+export function GoogleLoginButton() {
+  useEffect(() => {
+    function handleSignIn() {}
+    handleSignIn();
+  }, []);
+  return (
+    <Button
+      variant={"outline"}
+      onClick={() => signIn("google")}
+      className="bg-transparent border-2"
+    >
+      <div className="flex flex-row items-center gap-5">
+        <Image
+          src={"/icons/google.png"}
+          width={20}
+          height={20}
+          alt="Google Logo"
+        />
+        <h1>학교 계정으로 로그인</h1>
+      </div>
+    </Button>
   );
 }
