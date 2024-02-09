@@ -1,4 +1,3 @@
-import { langColorMap, studyLangs } from "@/app/types/study";
 import Summary from "@/components/pages/profile/summary";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,10 +7,10 @@ function Page({ params }: { params: { id: string } }) {
   const name = decodeURIComponent(params.id);
   return (
     <>
-      <Summary name={"React + TypeScript 스터디"} info={"양병현"} />
+      <Summary name={"React + TypeScript 스터디"} info={"양병현"} imageUrl="" />
       <div className="flex flex-row w-10/12 max-w-4xl gap-2 justify-start pt-2">
         <Badge className="mb-0.5">{"정규스터디"}</Badge>
-        {[studyLangs.React, studyLangs.Javascript].map((val, idx) => (
+        {/* {[studyLangs.React, studyLangs.Javascript].map((val, idx) => (
           <Badge
             className={`mb-0.5 bg-${langColorMap[
               val
@@ -22,7 +21,7 @@ function Page({ params }: { params: { id: string } }) {
           >
             {val}
           </Badge>
-        ))}
+        ))} */}
       </div>
       <div className="w-10/12 max-w-4xl h-px bg-gray-200 mt-2 mb-4" />
       <div className="flex flex-col w-10/12 max-w-4xl py-2 gap-8">

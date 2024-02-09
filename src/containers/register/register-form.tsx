@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import handleSignUp from "@/hooks/api/handleSignUp";
 import ToastEmitter from "@/hooks/toastEmitter";
 import { HYU_DEPARTMENTS } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,7 +40,7 @@ const formSchema = z.object({
     }
     return val;
   }),
-  department: z.string(),
+  department: z.string().min(1, { message: "학과를 선택해주세요." }),
 });
 
 export default function RegisterForm() {
@@ -57,13 +58,18 @@ export default function RegisterForm() {
   //submit 버튼 클릭시
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
+      const res = await handleSignUp({
+        id_token: session?.user.token.id_token,
+        username: data.username,
+        userId: data.userId,
+        department: data.department,
+      });
       console.log(data);
     } catch (err) {
       console.log(err);
       ToastEmitter({ type: "success", text: "회원가입 실패!" });
     }
   }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -99,7 +105,7 @@ export default function RegisterForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>학과</FormLabel>
-              <Select>
+              <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="학과를 선택해주세요." />

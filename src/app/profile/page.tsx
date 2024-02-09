@@ -2,14 +2,12 @@
 import Summary from "@/components/pages/profile/summary";
 import { Button } from "@/components/ui/button";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
-import StudyCardContainer from "@/containers/profile/study-card-container";
 import { Text } from "@radix-ui/themes";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { ExampleStudyCards } from "../../mockup/mockup";
 function ProfilePage() {
-  const StudyCards = ExampleStudyCards;
   const { data: session } = useSession();
+
   return (
     <>
       <Summary
@@ -26,10 +24,6 @@ function ProfilePage() {
         <Text size="2" weight="medium" className="text-gray-400 pb-3">
           3개의 스터디가 진행중입니다.
         </Text>
-        <StudyCardContainer
-          studyValue={StudyCards.studyValue}
-          attendance={StudyCards.attendance}
-        />
       </div>
       <div className="flex flex-col w-10/12 max-w-4xl py-2">
         <Text size="5" weight="bold" className="text-gray-900">
@@ -50,7 +44,7 @@ function ProfilePage() {
           </Link>
           <Button
             variant={"destructive"}
-            onClick={() => signOut()}
+            onClick={() => signOut({})}
             className="w-32"
           >
             로그아웃

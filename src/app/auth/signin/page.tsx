@@ -12,7 +12,7 @@ export default function Page() {
         gap="2"
         className="px-6 bg-gray-100 h-screen w-full flex items-center justify-center"
       >
-        <div className="bg-white p-0 w-7/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full relative flex flex-col">
+        <div className="bg-white p-0 w-9/12 shadow-sm rounded-md border-2 border-gray-200 overflow-hidden max-md:w-full relative flex flex-col">
           <div className="bg-slate-950 flex flex-col align-middle justify-start px-6 py-5 border-b-2 border-gray-200">
             <Text size="6" weight="bold" className="text-gray-50 mb-2">
               로그인/회원가입

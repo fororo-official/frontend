@@ -1,45 +1,48 @@
 "use client";
-import { StudyContainerInterface, StudyInterface } from "@/app/types/study";
+import { StudyInterface } from "@/app/types/study";
 import { useEffect, useState } from "react";
 
-interface UseStudySearchProps {
-  studyData: StudyContainerInterface;
-}
+export type HandleSearchInputChangeType = (input: string) => void;
 /**
  * Get filtered study list
  * @param studyData
  * @returns filtered Study list
  */
-const useStudySearch = ({ studyData }: UseStudySearchProps) => {
+const useStudySearch = ({
+  studyData,
+}: {
+  studyData: StudyInterface[] | undefined;
+}) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredStudyData, setFilteredStudyData] = useState<StudyInterface[]>(
     []
   );
 
   useEffect(() => {
-    // Function to filter studyData based on study name
     const filterStudyData = () => {
-      const filteredData = studyData.studyValue.filter(
-        (study) =>
-          study.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-          study.lang.some((lang) =>
-            lang.toLowerCase().includes(searchInput.toLowerCase())
-          )
-      );
-      setFilteredStudyData(filteredData);
+      if (studyData) {
+        const filteredData = studyData.filter(
+          (study) =>
+            study.studyName.toLowerCase().includes(searchInput.toLowerCase()) ||
+            study.tags.some((tag) =>
+              tag.toLowerCase().includes(searchInput.toLowerCase())
+            )
+        );
+        setFilteredStudyData(filteredData);
+      } else {
+        setFilteredStudyData([]);
+      }
     };
 
-    // Call the filterStudyData function when searchInput or studyData changes
     filterStudyData();
   }, [searchInput, studyData]);
 
-  // Function to update the search input
-  const handlesearchInputChange = (input: string) => {
+  const handleSearchInputChange = (input: string) => {
     setSearchInput(input);
   };
 
   // Return the filtered study data and the function to update the search input
-  return { searchInput, filteredStudyData, handlesearchInputChange };
+  return { searchInput, filteredStudyData, handleSearchInputChange };
 };
 
 export default useStudySearch;

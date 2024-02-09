@@ -10,7 +10,6 @@ const parseJwt = (token: string | undefined) => {
         })
         .join("")
     );
-    console.log(JSON.parse(jsonPayload));
 
     return JSON.parse(jsonPayload);
   }

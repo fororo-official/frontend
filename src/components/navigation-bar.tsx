@@ -30,8 +30,9 @@ export function NavigationBar() {
           <Image src={"/icons/forif.svg"} alt="Logo" width={88} height={36} />
         </div>
       </Link>
-      {session ? (
+      {session && pathname !== "/auth/signup" ? (
         <nav className="flex items-center space-x-6 max-md:hidden">
+          <NavTab href="/studies">스터디 목록</NavTab>
           <NavTab href="/profile">프로필</NavTab>
         </nav>
       ) : (
@@ -39,7 +40,9 @@ export function NavigationBar() {
           {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
           {pathname === "/" && <NavTab href="#howitworks">How it works</NavTab>}
           {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
-          {pathname !== "/auth/signin" && <GoogleLoginButton />}
+          {pathname !== "/auth/signin" && pathname !== "/auth/signup" && (
+            <GoogleLoginButton />
+          )}
         </nav>
       )}
 

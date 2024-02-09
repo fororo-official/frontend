@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ImageWithFallback from "@/components/common/ImageWithFallBack";
 
 function Summary({
   imageUrl,
@@ -11,7 +11,7 @@ function Summary({
 }) {
   return (
     <div className="flex flex-col w-10/12 max-w-4xl">
-      <Image
+      <ImageWithFallback
         src={imageUrl}
         width={128}
         height={128}

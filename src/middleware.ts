@@ -1,6 +1,6 @@
 import { JWT, getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-const withAuthList = ["/profile", "/studies"];
+const withAuthList = ["/profile", "/studies/:path*"];
 const withOutAuthList = ["/auth/signin"];
 function withAuth(req: NextRequest, token: JWT | null) {
   if (!token) {
@@ -20,7 +20,7 @@ function withOutAuth(req: NextRequest, token: JWT | null) {
 export async function middleware(req: NextRequest) {
   // 서버사이드에서 로그인 유무를 판단할 수 있는 next-auth 제공 함수
   // 토큰 값이 falsy 하지 않으면 로그인 o
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({ req });
 
   // 사용자가 요청하는 페이지 pathname
   const { pathname } = req.nextUrl;

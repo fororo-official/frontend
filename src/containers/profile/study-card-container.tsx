@@ -14,6 +14,7 @@ function StudyCardContainer({
           mentor={val.mentor}
           startTime={val.startTime}
           endTime={val.endTime}
+          imageUrl={val.imageUrl}
           attendance={attendance}
           type={val.type}
           lang={val.lang}
