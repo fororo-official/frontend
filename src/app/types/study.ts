@@ -9,9 +9,14 @@ interface StudyInterface {
   mentorId: number;
   studyId: number;
   studyName: string;
-  image: string | null;
+  image: string;
   studyType: "정규" | "자율";
   tags: string[];
+}
+
+interface DetailStudyInterface extends StudyInterface {
+  goal: string;
+  explanation: string;
 }
 
 export const langColorMap: Record<string, string> = {
@@ -25,4 +30,4 @@ export const langColorMap: Record<string, string> = {
   algorithm: "gray",
 };
 
-export type { StudyInterface };
+export type { DetailStudyInterface, StudyInterface };
