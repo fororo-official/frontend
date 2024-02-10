@@ -1,10 +1,26 @@
-import handleSignIn from "@/hooks/api/handleSignIn";
 import ToastEmitter from "@/hooks/toastEmitter";
 import { NextAuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
+import Naver from "next-auth/providers/naver";
+
+export type signInResponseType = {
+  data: {
+    id: number;
+    email: string;
+    userName: string;
+    department: string;
+    image: string;
+    userAuthorization: "관리자" | "유저" | "운영진";
+  };
+};
+
 const authOptions = {
   providers: [
     Google({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    Naver({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
@@ -27,18 +43,22 @@ const authOptions = {
     },
     async signIn({ user, account, profile }) {
       if (profile && user && account) {
-        console.log(account.id_token);
-
         if (profile.email?.endsWith("hanyang.ac.kr")) {
-          const data = await handleSignIn(account.id_token);
-          if (data.status === 200) return true;
-          else return `/auth/error/?errorCode=${data.status}`;
+          const data = await fetch(`http://localhost:3000/api/auth/signin`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${account.id_token}`,
+            },
+          });
+          const res = await data.json();
+          if (res) return true;
+          else return "/auth/error/?errorCode=405";
         } else {
           ToastEmitter({
             type: "error",
             text: "한양대학교 계정을 사용해주세요.",
           });
-          return false;
+          return "/auth/error";
         }
       }
       ToastEmitter({ type: "success", text: "로그인에 성공했습니다!" });

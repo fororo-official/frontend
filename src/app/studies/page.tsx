@@ -18,7 +18,6 @@ const StudiesPage = () => {
     useStudySearch({
       studyData: data,
     });
-
   if (isLoading) return <SpinningCircle message="스터디 불러오는 중..." />;
   if (error)
     return (

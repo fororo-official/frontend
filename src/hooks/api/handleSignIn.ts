@@ -1,13 +1,22 @@
+export type signInResponseType = {
+  data: {
+    id: number;
+    email: string;
+    userName: string;
+    department: string;
+    image: string;
+    userAuthorization: "관리자" | "유저" | "운영진";
+  };
+};
+
 const handleSignIn = async (id_token: string | undefined) => {
-  const URL = `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}`;
-  const data: Response = await fetch(`${URL}/login`, {
-    method: "POST",
+  const data = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/signin`, {
     headers: {
       Authorization: `Bearer ${id_token}`,
     },
-    cache: "default",
   });
-  return data;
+  const signInResponse: signInResponseType = await data.json();
+  return signInResponse;
 };
 
 export default handleSignIn;

@@ -1,21 +1,19 @@
 import getToken from "@/hooks/api/getToken";
 import { NextApiRequest, NextApiResponse } from "next";
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const URL = `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}`;
   const idToken = await getToken({ req });
+
   if (idToken) {
-    const res: Response = await fetch(`${URL}/login`, {
+    const res: Response = await fetch(`${URL}/signin`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
-      cache: "default",
     });
     if (res.ok) {
-      const data = res.json();
-      return Response.json({
-        data,
-      });
+      const data = await res.json();
+      return Response.json(data);
     } else {
       return Response.json({
         message: "응답이 올바르지 않습니다.",

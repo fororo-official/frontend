@@ -39,7 +39,7 @@ function StudyCard({
               <Badge className="mb-0.5">{studyType} 스터디</Badge>
               {tags.map((val, idx) => (
                 <Badge
-                  className={`mb-0.5 bg-${langColorMap[val]}-500`}
+                  className={`mb-0.5 bg-${langColorMap[val]}-500 hover:bg-${langColorMap[val]}-500`}
                   key={idx}
                 >
                   {val.toUpperCase()}

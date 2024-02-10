@@ -27,7 +27,13 @@ export function NavigationBar() {
     >
       <Link href="/">
         <div className="flex items-center">
-          <Image src={"/icons/forif.svg"} alt="Logo" width={88} height={36} />
+          <Image
+            src={"/icons/forif.svg"}
+            alt="Logo"
+            width={88}
+            height={36}
+            priority
+          />
         </div>
       </Link>
       {session && pathname !== "/auth/signup" ? (
