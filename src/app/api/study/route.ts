@@ -1,6 +1,6 @@
 import getYearAndSemester from "@/hooks/getYearAndSemester";
-import { NextApiRequest, NextApiResponse } from "next";
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+import { NextRequest, NextResponse } from "next/server";
+export async function GET(req: NextRequest, res: NextResponse) {
   const { year, semester } = getYearAndSemester();
   const URL = `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}`;
   const response: Response = await fetch(
@@ -11,9 +11,9 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   );
   if (response.ok) {
     const data = await response.json();
-    return Response.json(data);
+    return NextResponse.json(data);
   } else {
-    return Response.json({
+    return NextResponse.json({
       message: "응답이 올바르지 않습니다.",
       status: 200,
     });

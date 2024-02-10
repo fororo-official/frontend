@@ -3,7 +3,6 @@ import Gallery from "@/components/common/gallery/gallery";
 import Milestone from "@/components/pages/home/milestone";
 import { Button } from "@/components/ui/button";
 import handleObserver from "@/hooks/intersectionObserver";
-import { parseJwt } from "@/hooks/parseJWT";
 import { galleryImages, milestone } from "@/mockup/mockup";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -73,11 +72,7 @@ export default function HomePage() {
                 F O R I F
               </h1>
             </div>
-            <Button
-              variant={"sensuous"}
-              size={"lg"}
-              onClick={() => parseJwt(userToken?.id_token)}
-            >
+            <Button variant={"sensuous"} size={"lg"} onClick={() => {}}>
               APPLY NOW
               {/* <Link href={"/studies"}>APPLY NOW</Link> */}
             </Button>

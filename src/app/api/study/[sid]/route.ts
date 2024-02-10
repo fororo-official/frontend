@@ -1,6 +1,6 @@
 import getYearAndSemester from "@/hooks/getYearAndSemester";
-import { NextApiRequest } from "next";
-export async function GET(req: NextApiRequest, context: any) {
+import { NextRequest, NextResponse } from "next/server";
+export async function GET(req: NextRequest, context: any) {
   const { params } = context;
   const { year, semester } = getYearAndSemester();
   const URL = `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}`;
@@ -14,9 +14,9 @@ export async function GET(req: NextApiRequest, context: any) {
 
   if (response.ok) {
     const data = await response.json();
-    return Response.json(data);
+    return NextResponse.json(data);
   } else {
-    return Response.json({
+    return NextResponse.json({
       message: "응답이 올바르지 않습니다.",
       status: 200,
     });
