@@ -9,14 +9,6 @@ const nextConfig = {
       },
     ];
   },
-  async rewrites() {
-    return [
-      {
-        source: "/hooks/api/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}/:path*`,
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {
