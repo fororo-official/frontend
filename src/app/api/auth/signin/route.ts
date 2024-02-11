@@ -1,8 +1,6 @@
 import getToken from "@/hooks/api/getToken";
 import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest, res: NextResponse) {
-  console.log(process.env.API_BASEURL);
-
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
   const idToken = await getToken({ req });
 
