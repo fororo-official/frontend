@@ -6,7 +6,7 @@ type signUpType = {
 };
 
 const handleSignUp = async (userData: signUpType) => {
-  const URL = `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}`;
+  const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
   const data: Response = await fetch(`${URL}/signup`, {
     method: "POST",
     headers: {

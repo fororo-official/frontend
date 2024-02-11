@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, context: any) {
   const { params } = context;
   const { year, semester } = getYearAndSemester();
-  const URL = `${process.env.NEXT_PUBLIC_API_BASEURL}:${process.env.NEXT_PUBLIC_API_BASEPORT}`;
+  const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
 
   const response: Response = await fetch(
     `${URL}/studies?year=${year}&semester=${semester}&studyId=${params.sid}`,
