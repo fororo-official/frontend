@@ -43,8 +43,6 @@ const authOptions = {
     },
     async signIn({ user, account, profile }) {
       if (profile && user && account) {
-        console.log(process.env.NEXTAUTH_URL);
-
         if (profile.email?.endsWith("hanyang.ac.kr")) {
           const data = await fetch(
             `${process.env.NEXTAUTH_URL}/api/auth/signin`,
