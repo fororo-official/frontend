@@ -1,35 +1,33 @@
 interface StudyInterface {
-  sid: number;
-  name: string;
+  clubId: number;
+  date: string;
   startTime: string;
   endTime: string;
-  mentor: string;
-  attendance?: boolean;
-  type: "정규스터디" | "자율스터디";
-  lang: studyLangs[];
+  interview: boolean;
+  level: 1 | 2 | 3 | 4 | 5;
+  mentorName: string;
+  mentorId: number;
+  studyId: number;
+  studyName: string;
+  image: string;
+  studyType: "정규" | "자율";
+  tags: string[];
 }
 
-interface StudyContainerInterface {
-  studyValue: StudyInterface[];
-  attendance: boolean;
+interface DetailStudyInterface extends StudyInterface {
+  goal: string;
+  explanation: string;
 }
 
-export enum studyLangs {
-  C = "C",
-  CPP = "C++",
-  Java = "Java",
-  Python = "Python",
-  Javascript = "Javascript",
-  React = "React",
-}
-
-export const langColorMap: Record<studyLangs, string> = {
-  [studyLangs.C]: "blue",
-  [studyLangs.CPP]: "green",
-  [studyLangs.Java]: "orange",
-  [studyLangs.Python]: "yellow",
-  [studyLangs.Javascript]: "purple",
-  [studyLangs.React]: "rose",
+export const langColorMap: Record<string, string> = {
+  flutter: "blue",
+  react: "sky",
+  javascript: "orange",
+  c: "lime",
+  python: "yellow",
+  nextjs: "gray",
+  java: "rose",
+  algorithm: "gray",
 };
 
-export type { StudyContainerInterface, StudyInterface };
+export type { DetailStudyInterface, StudyInterface };

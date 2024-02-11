@@ -1,5 +1,3 @@
-import { Milestone } from "lucide-react";
-
 type MilestoneEvent = {
   event: string;
 };
@@ -14,8 +12,8 @@ type MilestoneData = {
   events: MilestoneEvents[];
 };
 
-type Milestone = {
+type MilestoneType = {
   data: MilestoneData[];
 };
 
-export type { Milestone };
+export type { MilestoneType };

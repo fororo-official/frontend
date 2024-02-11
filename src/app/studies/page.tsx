@@ -1,19 +1,44 @@
 "use client";
+import SpinningCircle from "@/components/common/skeleton/spinning-circle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import StudyCardContainer from "@/containers/home/study-card-container";
-import handleQueryAndToast from "@/hooks/handleQueryAndToast";
+import StudyCardContainer from "@/containers/studies/study-card-container";
 import useStudySearch from "@/hooks/search-study";
+import axios from "axios";
 import Image from "next/image";
-import { ExampleStudyCards } from "../../mockup/mockup";
+import useSWR from "swr";
+import { StudyInterface } from "../types/study";
 const StudiesPage = () => {
-  handleQueryAndToast();
-
-  const StudyCards = ExampleStudyCards;
-  const { searchInput, filteredStudyData, handlesearchInputChange } =
+  const fetcher = (url: string) => axios.get(url, {}).then((res) => res.data);
+  const { data, error, isLoading } = useSWR<StudyInterface[]>(
+    "/api/study",
+    fetcher
+  );
+  const { searchInput, filteredStudyData, handleSearchInputChange } =
     useStudySearch({
-      studyData: StudyCards,
+      studyData: data,
     });
+  if (isLoading) return <SpinningCircle message="스터디 불러오는 중..." />;
+  if (error)
+    return (
+      <div className="flex flex-col gap-5 items-centere justify-center w-full h-full">
+        <h1 className="text-2xl font-bold text-red-400">ERROR {error}</h1>
+        <p>현재 스터디 목록을 불러올 수 없습니다.</p>
+      </div>
+    );
+
+  if (!data)
+    return (
+      <div className="flex flex-col gap-5 justify-center items-center w-full h-full">
+        <h1 className="text-4xl font-bold text-red-500">
+          스터디가 존재하지 않습니다.
+        </h1>
+        <p>
+          죄송합니다. 현재 스터디 목록이 존재하지 않습니다. 새로고침 혹은
+          이메일로 문의 바랍니다.
+        </p>
+      </div>
+    );
 
   return (
     <div className="pt-16 mb-8 min-h-full h-fit">
@@ -24,7 +49,7 @@ const StudiesPage = () => {
           </div>
           <div className="mb-4">
             <span className="text-base text-gray-500">
-              {StudyCards.studyValue.length}개의 스터디가 개설되어있습니다.
+              {data.length}개의 스터디가 개설되어있습니다.
             </span>
           </div>
           <div className="relative flex flex-row mb-8 items-center justify-start">
@@ -38,7 +63,7 @@ const StudiesPage = () => {
             <Input
               type="text"
               placeholder="스터디 이름 또는 언어로 검색해보세요!"
-              onChange={(e) => handlesearchInputChange(e.target.value)}
+              onChange={(e) => handleSearchInputChange(e.target.value)}
               className="flex-grow pl-7"
             />
           </div>
@@ -47,10 +72,7 @@ const StudiesPage = () => {
               검색결과와 일치하는 스터디가 존재하지 않습니다.
             </h1>
           ) : (
-            <StudyCardContainer
-              studyValue={filteredStudyData}
-              attendance={false}
-            />
+            <StudyCardContainer studyValue={filteredStudyData} />
           )}
         </div>
       </div>

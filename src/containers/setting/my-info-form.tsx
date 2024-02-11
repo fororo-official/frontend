@@ -22,21 +22,28 @@ import {
 } from "@/components/ui/select";
 import { HYU_DEPARTMENTS, formSchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
 import z from "zod";
 
 export default function MyInfoForm() {
+  const [profileImg, setProfileImg] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       email: "",
-      studentId: "",
+      userId: "",
       department: "",
       profileImage: "",
     },
   });
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    setProfileImg(selectedFile || null);
+  };
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
@@ -51,7 +58,7 @@ export default function MyInfoForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>프로필 이미지</FormLabel>
-              <FormDescription>jpg, png만 업로드 가능합니다.</FormDescription>
+              <FormDescription>jpg, png 이미지만 가능합니다</FormDescription>
               <div className="flex items-end gap-2">
                 <img
                   src={field.value || "https://via.placeholder.com/150"}
@@ -65,10 +72,9 @@ export default function MyInfoForm() {
               <FormControl>
                 <Input
                   type="file"
-                  placeholder="프로필 이미지"
-                  accept="image/*"
+                  accept="image/png, image/jpeg, image/jpg"
                   className="hidden"
-                  {...field}
+                  onChange={onChange}
                 />
               </FormControl>
               <FormMessage />
@@ -104,7 +110,7 @@ export default function MyInfoForm() {
           )}
         />
         <FormField
-          name="studentId"
+          name="userId"
           control={form.control}
           render={({ field }) => (
             <FormItem>

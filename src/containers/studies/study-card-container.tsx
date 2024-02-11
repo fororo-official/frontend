@@ -1,10 +1,14 @@
 import { StudyInterface } from "@/app/types/study";
 import StudyCard from "@/components/common/study-card";
 
-function StudyCardContainer({ studyValue }: { studyValue: StudyInterface[] }) {
+function HomeStudyCardContainer({
+  studyValue,
+}: {
+  studyValue: StudyInterface[];
+}) {
   return (
     <div className="flex flex-col gap-2">
-      {studyValue.map((val, idx) => (
+      {studyValue.map((val) => (
         <StudyCard
           studyId={val.studyId}
           studyName={val.studyName}
@@ -26,4 +30,4 @@ function StudyCardContainer({ studyValue }: { studyValue: StudyInterface[] }) {
   );
 }
 
-export default StudyCardContainer;
+export default HomeStudyCardContainer;

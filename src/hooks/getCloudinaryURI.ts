@@ -6,7 +6,7 @@ import axios from "axios";
  * @param studentId
  * @returns Img uri
  */
-async function getCloudinaryURI(profileImg: File, studentId: string) {
+async function getUserPhotoURI(profileImg: File, studentId: string) {
   const formData = new FormData();
   formData.append("file", profileImg);
 
@@ -16,8 +16,8 @@ async function getCloudinaryURI(profileImg: File, studentId: string) {
       formData,
       {
         params: {
-          upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
-          api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+          upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+          api_key: process.env.CLOUDINARY_API_KEY,
           folder: "profiles",
           public_id: studentId,
         },
@@ -33,4 +33,31 @@ async function getCloudinaryURI(profileImg: File, studentId: string) {
   }
 }
 
-export default getCloudinaryURI;
+async function getStudyPhotoURI(profileImg: File, studyId: string) {
+  const formData = new FormData();
+  formData.append("file", profileImg);
+
+  try {
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/dheikvmxu/image/upload",
+      formData,
+      {
+        params: {
+          upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+          api_key: process.env.CLOUDINARY_API_KEY,
+          folder: "studies",
+          public_id: studyId,
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    const data: CloudinaryRes = res.data;
+    return data.url;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getStudyPhotoURI, getUserPhotoURI };
